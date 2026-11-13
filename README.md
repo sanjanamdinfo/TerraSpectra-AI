@@ -3,7 +3,7 @@
 ## AI-Powered Precision Agriculture for Wheat Disease Detection
 
 ### About the Project
-TerraSpectra-AI is an AI-powered project designed to detect fungal blight in wheat using hyperspectral satellite imagery.
+TerraSpectra-AI is an explainable AI-based project focused on identifying fungal disease in wheat leaves using hyperspectral imaging. The project aims to identify important wavelengths that help distinguish healthy and infected leaves and improve disease classification.
 
 ### Objectives
 - Early detection of fungal blight in wheat.
