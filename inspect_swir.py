@@ -789,3 +789,71 @@ plt.show()
 print("\n===== SECTION 16 COMPLETED =====")
 
 print("\n===== ALL SWIR INSPECTION SECTIONS COMPLETED SUCCESSFULLY =====")
+# ==========================================
+# 17. COLUMN-WISE MAXIMUM VALUE INVESTIGATION
+# ==========================================
+
+print("\n===== COLUMN-WISE MAXIMUM VALUE INVESTIGATION =====")
+
+MAX_VALUE = 65535
+
+# Count maximum values in each image column
+column_maximum_counts = np.sum(
+    data == MAX_VALUE,
+    axis=(0, 2)
+)
+
+# Create DataFrame
+column_analysis = pd.DataFrame({
+    "Image_Column": np.arange(data.shape[1]),
+    "Maximum_Value_Count": column_maximum_counts
+})
+
+# Sort columns by maximum-value count
+column_analysis_sorted = column_analysis.sort_values(
+    by="Maximum_Value_Count",
+    ascending=False
+)
+
+print("\nTop 15 columns containing maximum values:")
+print(column_analysis_sorted.head(15).to_string(index=False))
+
+# Save CSV
+column_csv_path = "data/processed/SWIR_column_maximum_analysis.csv"
+
+column_analysis.to_csv(
+    column_csv_path,
+    index=False
+)
+
+print("\nColumn analysis saved:", column_csv_path)
+
+# Plot column-wise maximum values
+plt.figure(figsize=(14, 6))
+
+plt.bar(
+    column_analysis["Image_Column"],
+    column_analysis["Maximum_Value_Count"]
+)
+
+plt.title("Column-wise Distribution of Maximum Values (65535)")
+plt.xlabel("Image Column")
+plt.ylabel("Number of Maximum Values")
+
+plt.tight_layout()
+
+column_plot_path = (
+    "data/processed/SWIR_column_maximum_distribution.png"
+)
+
+plt.savefig(
+    column_plot_path,
+    dpi=300,
+    bbox_inches="tight"
+)
+
+print("Column distribution plot saved:", column_plot_path)
+
+plt.show()
+
+print("\n===== SECTION 17 COMPLETED =====")
