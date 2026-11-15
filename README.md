@@ -61,15 +61,15 @@ The goal is to develop a scientifically grounded and interpretable approach to w
 - [Problem Statement](#-problem-statement)
 - [Objectives](#-research-objectives)
 - [Dataset](#-dataset)
-- [System Workflow](#-system-workflow)
+- [System Workflow](#️-system-workflow)
 - [Technology Stack](#️-technology-stack)
 - [Project Structure](#-project-structure)
 - [Research and Implementation](#-research-and-implementation)
 - [Current Investigation Results](#-current-investigation-results)
-- [Visualization Gallery](#-visualization-gallery)
+- [Visualization Gallery](#️-visualization-gallery)
 - [Project Roadmap](#-project-roadmap)
 - [Installation](#-getting-started)
-- [Limitations](#-research-limitations)
+- [Limitations](#️-research-limitations)
 
 </details>
 
@@ -94,6 +94,8 @@ However, analysing this data requires careful handling of high-dimensional infor
 - [x] Prepare VNIR and SWIR annotation tables.
 - [x] Inspect an actual SWIR hyperspectral image.
 - [x] Investigate unusual maximum-value measurements.
+- [x] Complete initial spatial maximum-value investigation.
+- [x] Complete column-wise maximum-value investigation.
 - [ ] Complete spatial quality validation.
 - [ ] Extend processing to relevant samples.
 - [ ] Identify important wavelengths.
@@ -130,11 +132,11 @@ However, analysing this data requires careful handling of high-dimensional infor
 | Image dimensions | 420 × 320 |
 | Spectral bands | 256 |
 | Wavelength range | 964.18–2494.39 nm |
-| Data type | uint16 |
+| Source data type | uint16 |
 | Interleave | BIL |
 | Acquisition date | 11 March 2021 |
 
-These specifications describe the inspected sample.
+These specifications describe the inspected SWIR sample, not the entire dataset.
 
 ---
 
@@ -165,8 +167,6 @@ flowchart TD
 
 ## 🛠️ Technology Stack
 
-<div align="center">
-
 | Technology | Application |
 |---|---|
 | 🐍 Python | Project implementation |
@@ -177,8 +177,6 @@ flowchart TD
 | 💻 VS Code | Development environment |
 | 🌿 Git | Version control |
 | 🐙 GitHub | Project hosting |
-
-</div>
 
 ---
 
@@ -203,7 +201,9 @@ TerraSpectra-AI/
 │       ├── VNIR_cleaned.csv
 │       ├── VNIR_prepared.csv
 │       ├── SWIR_spatial_maximum_distribution.png
-│       └── SWIR_overall_maximum_heatmap.png
+│       ├── SWIR_overall_maximum_heatmap.png
+│       ├── SWIR_column_maximum_analysis.csv
+│       └── SWIR_column_maximum_distribution.png
 │
 ├── main.py
 ├── inspect_raw.py
@@ -221,7 +221,7 @@ TerraSpectra-AI/
 ## 🔬 Research and Implementation
 
 <details open>
-<summary><b>Phase 1 — Dataset Inspection</b> ✅</summary>
+<summary><b>Phase 1 — Dataset Inspection</b> ✅ Completed</summary>
 
 - Inspected dataset metadata.
 - Identified VNIR and SWIR data.
@@ -230,7 +230,7 @@ TerraSpectra-AI/
 </details>
 
 <details open>
-<summary><b>Phase 2 — Metadata Preparation</b> ✅</summary>
+<summary><b>Phase 2 — Metadata Preparation</b> ✅ Completed</summary>
 
 Prepared annotation tables for both imaging modalities.
 
@@ -245,7 +245,7 @@ These are pot-level annotation records, not individual spectral images.
 </details>
 
 <details open>
-<summary><b>Phase 3 — SWIR Image Inspection</b> ✅</summary>
+<summary><b>Phase 3 — SWIR Image Inspection</b> ✅ Completed</summary>
 
 - Loaded an actual SWIR hyperspectral image.
 - Inspected its dimensions and wavelength information.
@@ -255,7 +255,7 @@ These are pot-level annotation records, not individual spectral images.
 </details>
 
 <details open>
-<summary><b>Phase 4 — Spectral Quality Investigation</b> 🔄</summary>
+<summary><b>Phase 4 — Spectral Quality Investigation</b> ✅ Initial Investigation Completed</summary>
 
 Investigated:
 
@@ -265,16 +265,38 @@ Investigated:
 - Leaf-region measurements.
 - Neighbouring wavelength values.
 
+Further technical validation remains necessary.
+
 </details>
 
 <details open>
-<summary><b>Phase 5 — Spatial Maximum-Value Investigation</b> ✅</summary>
+<summary><b>Phase 5 — Spatial Maximum-Value Investigation</b> ✅ Completed</summary>
 
 Generated:
 
 - Spatial maximum-value distribution.
 - Overall maximum-value heatmap.
 - Band-wise spatial investigation.
+
+</details>
+
+<details open>
+<summary><b>Phase 6 — Column-wise Maximum-Value Investigation</b> ✅ Completed</summary>
+
+Investigated the distribution of maximum stored values (`65535`) across the 320 image columns.
+
+Completed activities:
+
+- Counted maximum-value occurrences across image columns.
+- Identified columns with the highest counts.
+- Generated a column-wise analysis CSV file.
+- Created a column-wise maximum-value distribution graph.
+- Examined the concentration of maximum-value occurrences.
+
+**Generated outputs:**
+
+- `SWIR_column_maximum_analysis.csv`
+- `SWIR_column_maximum_distribution.png`
 
 </details>
 
@@ -307,6 +329,27 @@ The inspected SWIR image contains:
 | 125 | 1714.28 nm | 12 |
 | 255 | 2494.39 nm | 12 |
 
+### Column-wise Maximum-Value Findings
+
+The Section 17 investigation identified eight columns with 420 maximum-value occurrences each.
+
+| Image Column | Maximum-Value Count |
+|---:|---:|
+| 14 | 420 |
+| 33 | 420 |
+| 135 | 420 |
+| 290 | 420 |
+| 292 | 420 |
+| 296 | 420 |
+| 300 | 420 |
+| 302 | 420 |
+
+Other columns also contained smaller numbers of maximum-value occurrences.
+
+**Research interpretation:** Maximum-value occurrences are concentrated in particular image columns rather than being evenly distributed. This suggests a spatial pattern that deserves further investigation.
+
+The counts are calculated across all image rows and spectral bands. They do not establish the cause of the pattern.
+
 **Research note:** The maximum stored values have not been confirmed as sensor saturation or invalid measurements. Their meaning requires further investigation. No spectral values have been deleted or modified.
 
 ---
@@ -327,8 +370,15 @@ The inspected SWIR image contains:
 
 </details>
 
+<details open>
+<summary><b>📊 SWIR Column-wise Maximum-Value Distribution</b></summary>
+
+![SWIR Column Maximum Distribution](data/processed/SWIR_column_maximum_distribution.png)
+
+</details>
+
 <details>
-<summary><b>📊 Other Generated Visualizations</b></summary>
+<summary><b>Other Generated Visualizations</b></summary>
 
 - SWIR leaf-coordinate verification.
 - Maximum-value locations.
@@ -348,14 +398,14 @@ The inspected SWIR image contains:
 | SWIR image inspection | 🟢 Completed for one sample |
 | Initial quality investigation | 🟢 Completed |
 | Spatial maximum analysis | 🟢 Completed |
-| Column-wise investigation | 🟡 Upcoming |
+| Column-wise investigation | 🟢 Completed |
 | Full spectral preprocessing | ⚪ Planned |
 | Wavelength identification | ⚪ Planned |
 | Disease classification | ⚪ Planned |
 | Explainable AI | ⚪ Planned |
 | Model evaluation | ⚪ Planned |
 
-**Legend:** 🟢 Completed · 🟡 In Progress/Upcoming · ⚪ Planned
+**Legend:** 🟢 Completed · 🟡 In Progress · ⚪ Planned
 
 ---
 
@@ -414,7 +464,7 @@ python inspect_swir.py
 
 ## 🔮 Future Enhancements
 
-- Complete spatial and column-wise quality investigation.
+- Complete spatial quality validation.
 - Validate coordinate mapping.
 - Expand SWIR and VNIR processing.
 - Identify disease-related spectral patterns.
