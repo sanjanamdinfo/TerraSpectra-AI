@@ -1,7 +1,15 @@
+import os
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from spectral import envi
+
+
+# ==========================================
+# CREATE PROCESSED DATA FOLDER
+# ==========================================
+
+os.makedirs("data/processed", exist_ok=True)
 
 
 # ==========================================
@@ -46,7 +54,7 @@ print("Mean value:", np.mean(data))
 ignore_value = int(img.metadata["data ignore value"])
 
 print("Ignore value:", ignore_value)
-print("Ignored pixels:", np.sum(data == ignore_value))
+print("Ignored values:", np.sum(data == ignore_value))
 
 
 # ==========================================
@@ -110,8 +118,6 @@ print("Y maximum:", leaf_df["Y"].max())
 print("Duplicate coordinates:", leaf_df.duplicated().sum())
 
 
-# Check whether coordinates fit image dimensions
-
 print("\n===== IMAGE BOUNDARY VALIDATION =====")
 
 print("Image rows:", data.shape[0])
@@ -153,7 +159,6 @@ axes[0].scatter(
 )
 
 axes[0].set_title("X = Columns, Y = Rows")
-
 axes[0].set_xlabel("Image Columns")
 axes[0].set_ylabel("Image Rows")
 
@@ -169,7 +174,6 @@ axes[1].scatter(
 )
 
 axes[1].set_title("X = Rows, Y = Columns")
-
 axes[1].set_xlabel("Image Columns")
 axes[1].set_ylabel("Image Rows")
 
@@ -178,17 +182,15 @@ plt.tight_layout()
 
 plt.savefig(
     "data/processed/SWIR_leaf_coordinate_check.png",
-    dpi=200,
-    bbox_inches="tight"
-)
-
-plt.savefig(
-    "data/processed/SWIR_leaf_coordinate_check.png",
     dpi=300,
     bbox_inches="tight"
 )
 
-print("\n===== SWIR INSPECTION COMPLETED =====")
+print("Leaf coordinate figure saved successfully.")
+
+plt.show()
+
+
 # ==========================================
 # 8. EXTRACT LEAF SPECTRAL INFORMATION
 # ==========================================
@@ -199,6 +201,7 @@ rows = leaf_df["X"].to_numpy(dtype=int)
 columns = leaf_df["Y"].to_numpy(dtype=int)
 
 # Extract all 256 spectral bands for leaf pixels
+
 leaf_spectra = data[rows, columns, :]
 
 print("Extracted spectral data shape:", leaf_spectra.shape)
@@ -213,35 +216,33 @@ print("Minimum spectral value:", np.min(leaf_spectra))
 
 print("Maximum spectral value:", np.max(leaf_spectra))
 
-# Check invalid values
 print("NaN values:", np.isnan(leaf_spectra).sum())
 
 print("Infinite values:", np.isinf(leaf_spectra).sum())
 
 print("\n===== LEAF SPECTRAL EXTRACTION COMPLETED =====")
+
+
 # ==========================================
 # 9. LEAF SPECTRAL DATA QUALITY ANALYSIS
 # ==========================================
 
 print("\n===== LEAF SPECTRAL QUALITY ANALYSIS =====")
 
-# Count zero values
 zero_count = np.sum(leaf_spectra == 0)
 
-# Count maximum values
 max_count = np.sum(leaf_spectra == 65535)
 
-# Count ignore values
 ignore_count = np.sum(leaf_spectra == ignore_value)
 
-# Count affected pixels
-pixels_with_zero = np.sum(np.any(leaf_spectra == 0, axis=1))
+pixels_with_zero = np.sum(
+    np.any(leaf_spectra == 0, axis=1)
+)
 
 pixels_with_max = np.sum(
     np.any(leaf_spectra == 65535, axis=1)
 )
 
-# Count affected wavelength bands
 bands_with_max = np.sum(
     np.any(leaf_spectra == 65535, axis=0)
 )
@@ -259,6 +260,8 @@ print("Pixels containing maximum values:", pixels_with_max)
 print("Wavelength bands containing maximum values:", bands_with_max)
 
 print("\n===== QUALITY ANALYSIS COMPLETED =====")
+
+
 # ==========================================
 # 10. IDENTIFY AFFECTED WAVELENGTH BANDS
 # ==========================================
@@ -285,13 +288,14 @@ for band_index in affected_bands:
     )
 
 print("\n===== WAVELENGTH ANALYSIS COMPLETED =====")
+
+
 # ==========================================
 # 11. IDENTIFY MAXIMUM-VALUE PIXEL LOCATIONS
 # ==========================================
 
 print("\n===== MAXIMUM-VALUE PIXEL LOCATIONS =====")
 
-# Find positions of maximum values
 max_positions = np.argwhere(leaf_spectra == 65535)
 
 print("Total maximum-value positions:", len(max_positions))
@@ -309,16 +313,16 @@ for pixel_index, band_index in max_positions[:20]:
     )
 
 print("\n===== AFFECTED PIXEL ANALYSIS COMPLETED =====")
+
+
 # ==========================================
 # 12. MAXIMUM VALUE DISTRIBUTION ANALYSIS
 # ==========================================
 
 print("\n===== MAXIMUM VALUE DISTRIBUTION =====")
 
-# Count maximum values in each wavelength band
 max_counts = np.sum(leaf_spectra == 65535, axis=0)
 
-# Display only affected bands
 for band_index, count in enumerate(max_counts):
 
     if count > 0:
@@ -329,34 +333,42 @@ for band_index, count in enumerate(max_counts):
             f"Maximum values: {count}"
         )
 
-# Calculate percentage of affected leaf pixels
-affected_pixels = np.any(leaf_spectra == 65535, axis=1)
+
+affected_pixels = np.any(
+    leaf_spectra == 65535,
+    axis=1
+)
 
 print("\nTotal affected leaf pixels:", np.sum(affected_pixels))
 
 print(
     "Percentage of affected leaf pixels:",
-    round(np.mean(affected_pixels) * 100, 2), "%"
+    round(np.mean(affected_pixels) * 100, 2),
+    "%"
 )
 
 print("\n===== DISTRIBUTION ANALYSIS COMPLETED =====")
+
+
 # ==========================================
 # 13. VISUALISE MAXIMUM-VALUE LOCATIONS
 # ==========================================
 
 print("\n===== MAXIMUM VALUE LOCATION VISUALISATION =====")
 
-# Find maximum-value positions
 max_positions = np.argwhere(leaf_spectra == 65535)
 
-# Get corresponding coordinates
-affected_x = leaf_df.iloc[max_positions[:, 0]]["X"].to_numpy()
-affected_y = leaf_df.iloc[max_positions[:, 0]]["Y"].to_numpy()
+affected_x = leaf_df.iloc[
+    max_positions[:, 0]
+]["X"].to_numpy()
 
-# Get corresponding wavelength band numbers
+affected_y = leaf_df.iloc[
+    max_positions[:, 0]
+]["Y"].to_numpy()
+
 affected_bands = max_positions[:, 1]
 
-# Create plot
+
 plt.figure(figsize=(12, 6))
 
 scatter = plt.scatter(
@@ -367,7 +379,10 @@ scatter = plt.scatter(
     s=35
 )
 
-plt.colorbar(scatter, label="Wavelength Band Index")
+plt.colorbar(
+    scatter,
+    label="Wavelength Band Index"
+)
 
 plt.xlabel("Y Coordinate (Image Columns)")
 plt.ylabel("X Coordinate (Image Rows)")
@@ -376,15 +391,401 @@ plt.title("Spatial Distribution of Maximum Spectral Values")
 
 plt.grid(True)
 
+plt.tight_layout()
+
 plt.savefig(
     "data/processed/SWIR_maximum_value_locations.png",
     dpi=300,
     bbox_inches="tight"
 )
 
+print("Maximum-value location figure saved successfully.")
+
 plt.show()
 
 print("Total affected measurements:", len(max_positions))
-print("Plot saved successfully.")
 
 print("\n===== VISUALISATION COMPLETED =====")
+
+
+# ==========================================
+# 14. NEIGHBOURING WAVELENGTH INVESTIGATION
+# ==========================================
+
+print("\n===== NEIGHBOURING WAVELENGTH INVESTIGATION =====")
+
+affected_pixel_indices = np.unique(
+    max_positions[:, 0]
+)
+
+print("Total affected pixels:", len(affected_pixel_indices))
+
+
+print("\n===== AFFECTED PIXEL DETAILS =====")
+
+for pixel_index in affected_pixel_indices[:20]:
+
+    x = leaf_df.iloc[pixel_index]["X"]
+    y = leaf_df.iloc[pixel_index]["Y"]
+
+    affected_pixel_bands = max_positions[
+        max_positions[:, 0] == pixel_index, 1
+    ]
+
+    print(
+        f"Pixel: {pixel_index} | "
+        f"X: {x} | "
+        f"Y: {y} | "
+        f"Affected bands: {affected_pixel_bands.tolist()}"
+    )
+
+
+print("\n===== NEIGHBOURING BAND STATISTICS =====")
+
+affected_band_indices = np.unique(
+    max_positions[:, 1]
+)
+
+for band in affected_band_indices:
+
+    pixel_indices = np.unique(
+        max_positions[
+            max_positions[:, 1] == band, 0
+        ]
+    )
+
+    print("\n--------------------------------")
+
+    print(f"Affected Band: {band}")
+
+    print(f"Wavelength: {wavelengths[band]:.2f} nm")
+
+    for offset in [-2, -1, 1, 2]:
+
+        neighbour = band + offset
+
+        if 0 <= neighbour < len(wavelengths):
+
+            values = leaf_spectra[
+                pixel_indices,
+                neighbour
+            ]
+
+            print(
+                f"Neighbour Band: {neighbour} | "
+                f"Wavelength: {wavelengths[neighbour]:.2f} nm | "
+                f"Minimum: {values.min():.2f} | "
+                f"Maximum: {values.max():.2f} | "
+                f"Mean: {values.mean():.2f}"
+            )
+
+
+print("\n===== INVESTIGATION COMPLETED =====")
+
+
+# ==========================================
+# 15. MAXIMUM VALUE COMPARISON
+# INSIDE AND OUTSIDE THE LEAF REGION
+# ==========================================
+
+print("\n===== MAXIMUM VALUE COMPARISON =====")
+
+MAX_VALUE = 65535
+
+# Create a mask for the leaf region
+
+leaf_mask = np.zeros(
+    data.shape[:2],
+    dtype=bool
+)
+
+leaf_mask[rows, columns] = True
+
+
+# Count maximum values in the complete image
+
+whole_image_max = np.sum(
+    data == MAX_VALUE
+)
+
+
+# Count maximum values inside the leaf region
+
+leaf_max = np.sum(
+    leaf_spectra == MAX_VALUE
+)
+
+
+# Count maximum values outside the leaf region
+
+outside_max = whole_image_max - leaf_max
+
+
+print("\n===== MAXIMUM VALUE SUMMARY =====")
+
+print("Whole image maximum values:", whole_image_max)
+
+print("Leaf region maximum values:", leaf_max)
+
+print("Outside leaf region maximum values:", outside_max)
+
+
+if whole_image_max > 0:
+
+    print(
+        "Percentage of maximum values inside leaf region:",
+        round((leaf_max / whole_image_max) * 100, 2),
+        "%"
+    )
+
+
+# Compare maximum values for every wavelength band
+
+whole_band_counts = np.sum(
+    data == MAX_VALUE,
+    axis=(0, 1)
+)
+
+leaf_band_counts = np.sum(
+    leaf_spectra == MAX_VALUE,
+    axis=0
+)
+
+outside_band_counts = (
+    whole_band_counts - leaf_band_counts
+)
+
+
+band_comparison = pd.DataFrame({
+
+    "Band": np.arange(len(wavelengths)),
+
+    "Wavelength_nm": wavelengths,
+
+    "Whole_Image_Maximums": whole_band_counts,
+
+    "Leaf_Maximums": leaf_band_counts,
+
+    "Outside_Leaf_Maximums": outside_band_counts
+
+})
+
+
+print("\n===== TOP BANDS WITH MAXIMUM VALUES =====")
+
+print(
+    band_comparison[
+        band_comparison["Whole_Image_Maximums"] > 0
+    ].to_string(index=False)
+)
+
+
+# Save comparison results
+
+comparison_csv_path = (
+    "data/processed/SWIR_maximum_value_comparison.csv"
+)
+
+band_comparison.to_csv(
+    comparison_csv_path,
+    index=False
+)
+
+print("\nComparison CSV saved:", comparison_csv_path)
+
+
+# Visualise maximum values across wavelength bands
+
+plt.figure(figsize=(14, 6))
+
+plt.plot(
+    wavelengths,
+    whole_band_counts,
+    label="Whole Image",
+    marker="o",
+    markersize=3
+)
+
+plt.plot(
+    wavelengths,
+    leaf_band_counts,
+    label="Leaf Region",
+    marker="x",
+    markersize=4
+)
+
+plt.xlabel("Wavelength (nm)")
+
+plt.ylabel("Number of Maximum Values (65535)")
+
+plt.title(
+    "Maximum Value Distribution: Whole Image vs Leaf Region"
+)
+
+plt.legend()
+
+plt.grid(True, alpha=0.3)
+
+plt.tight_layout()
+
+plt.savefig(
+    "data/processed/SWIR_maximum_value_band_comparison.png",
+    dpi=300,
+    bbox_inches="tight"
+)
+
+print("Comparison figure saved successfully.")
+
+plt.show()
+
+print("\n===== SECTION 15 COMPLETED =====")
+
+# ==========================================
+# 16. SPATIAL DISTRIBUTION OF MAXIMUM VALUES
+# ==========================================
+
+print("\n===== SPATIAL MAXIMUM VALUE INVESTIGATION =====")
+
+MAX_VALUE = 65535
+
+# Confirm image dimensions
+print("SWIR image shape:", data.shape)
+
+if data.ndim != 3:
+    raise ValueError(
+        f"Expected 3D SWIR image, received shape {data.shape}"
+    )
+
+selected_bands = [
+    74, 82, 87,
+    90, 92, 104,
+    121, 125, 255
+]
+
+# Create figure
+
+fig, axes = plt.subplots(
+    3,
+    3,
+    figsize=(16, 14)
+)
+
+axes = axes.flatten()
+
+for i, band in enumerate(selected_bands):
+
+    # Extract one spectral band
+    band_data = np.asarray(data[:, :, band]).squeeze()
+
+    print(f"\nProcessing Band {band}")
+    print("Band data shape:", band_data.shape)
+
+    # Validate image dimensions
+    if band_data.ndim != 2:
+        raise ValueError(
+            f"Band {band} is not 2D: {band_data.shape}"
+        )
+
+    # Find maximum-value locations
+    mask = band_data == MAX_VALUE
+
+    row_positions, column_positions = np.where(mask)
+
+    print("Maximum value count:", len(row_positions))
+
+    # Plot maximum-value locations
+    axes[i].scatter(
+        column_positions,
+        row_positions,
+        s=5
+    )
+
+    axes[i].set_title(
+        f"Band {band}\n"
+        f"{wavelengths[band]:.2f} nm\n"
+        f"Count: {len(row_positions)}"
+    )
+
+    axes[i].set_xlabel("Image Column")
+    axes[i].set_ylabel("Image Row")
+
+    axes[i].set_xlim(0, data.shape[1])
+    axes[i].set_ylim(data.shape[0], 0)
+
+    axes[i].grid(True, alpha=0.2)
+
+plt.suptitle(
+    "Spatial Distribution of Maximum Values (65535)",
+    fontsize=16
+)
+
+plt.tight_layout()
+
+spatial_plot_path = (
+    "data/processed/SWIR_spatial_maximum_distribution.png"
+)
+
+plt.savefig(
+    spatial_plot_path,
+    dpi=300,
+    bbox_inches="tight"
+)
+
+print("\nSpatial distribution figure saved:", spatial_plot_path)
+
+plt.show()
+
+
+# ==========================================
+# OVERALL SPATIAL HEATMAP
+# ==========================================
+
+print("\n===== GENERATING OVERALL SPATIAL HEATMAP =====")
+
+# Count maximum values across all wavelength bands
+# for each image pixel
+
+maximum_pixel_counts = np.sum(
+    data == MAX_VALUE,
+    axis=2
+)
+
+plt.figure(figsize=(12, 7))
+
+plt.imshow(
+    maximum_pixel_counts,
+    cmap="hot",
+    origin="upper",
+    aspect="auto"
+)
+
+plt.colorbar(
+    label="Number of Maximum Values Across Bands"
+)
+
+plt.title(
+    "Overall Spatial Distribution of Maximum Values"
+)
+
+plt.xlabel("Image Column")
+plt.ylabel("Image Row")
+
+plt.tight_layout()
+
+heatmap_path = (
+    "data/processed/SWIR_overall_maximum_heatmap.png"
+)
+
+plt.savefig(
+    heatmap_path,
+    dpi=300,
+    bbox_inches="tight"
+)
+
+print("Overall heatmap saved:", heatmap_path)
+
+plt.show()
+
+print("\n===== SECTION 16 COMPLETED =====")
+
+print("\n===== ALL SWIR INSPECTION SECTIONS COMPLETED SUCCESSFULLY =====")
