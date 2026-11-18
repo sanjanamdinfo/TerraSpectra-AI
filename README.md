@@ -15,7 +15,7 @@
 
 <br>
 
-[📊 Dataset](#-dataset) · [🔬 Research](#-research-and-implementation) · [📈 Results](#-current-investigation-results) · [🛠️ Technologies](#️-technology-stack) · [🚀 Roadmap](#-project-roadmap)
+[📊 Dataset](#-dataset) · [🔬 Research](#-research-and-implementation) · [📈 Results](#-current-investigation-results) · [🛠 Technologies](#-technology-stack) · [🚀 Roadmap](#-project-roadmap)
 
 </div>
 
@@ -55,21 +55,22 @@ The goal is to develop a scientifically grounded and interpretable approach to w
 ## 🧭 Quick Navigation
 
 <details open>
+
 <summary><b>📚 Explore Project Documentation</b></summary>
 
 - [Project Overview](#-about-the-project)
 - [Problem Statement](#-problem-statement)
 - [Objectives](#-research-objectives)
 - [Dataset](#-dataset)
-- [System Workflow](#️-system-workflow)
-- [Technology Stack](#️-technology-stack)
+- [System Workflow](#-system-workflow)
+- [Technology Stack](#-technology-stack)
 - [Project Structure](#-project-structure)
 - [Research and Implementation](#-research-and-implementation)
 - [Current Investigation Results](#-current-investigation-results)
-- [Visualization Gallery](#️-visualization-gallery)
+- [Visualization Gallery](#-visualization-gallery)
 - [Project Roadmap](#-project-roadmap)
 - [Installation](#-getting-started)
-- [Limitations](#️-research-limitations)
+- [Limitations](#-research-limitations)
 
 </details>
 
@@ -96,7 +97,8 @@ However, analysing this data requires careful handling of high-dimensional infor
 - [x] Investigate unusual maximum-value measurements.
 - [x] Complete initial spatial maximum-value investigation.
 - [x] Complete column-wise maximum-value investigation.
-- [ ] Complete spatial quality validation.
+- [x] Complete initial SWIR spatial-neighbour investigation.
+- [ ] Complete broader spatial quality validation.
 - [ ] Extend processing to relevant samples.
 - [ ] Identify important wavelengths.
 - [ ] Develop disease classification models.
@@ -108,6 +110,7 @@ However, analysing this data requires careful handling of high-dimensional infor
 ## 📊 Dataset
 
 <details open>
+
 <summary><b>Dataset Information</b></summary>
 
 | Attribute | Details |
@@ -129,18 +132,33 @@ However, analysing this data requires careful handling of high-dimensional infor
 
 | Technical Specification | Value |
 |---|---:|
-| Image dimensions | 420 × 320 |
+| Image rows | 420 |
+| Image columns | 320 |
 | Spectral bands | 256 |
+| Image dimensions | 420 × 320 × 256 |
 | Wavelength range | 964.18–2494.39 nm |
 | Source data type | uint16 |
 | Interleave | BIL |
+| Sensor | SWIR_320me_SN3518 |
 | Acquisition date | 11 March 2021 |
 
 These specifications describe the inspected SWIR sample, not the entire dataset.
 
+### Prepared Sample Information
+
+| Category | Count |
+|---|---:|
+| Total records per prepared dataset | 48 |
+| Infected | 24 |
+| Non-infected | 24 |
+| EPO_67 genotype | 24 |
+| EPO_68 genotype | 24 |
+
+These are prepared annotation records, not individual spectral image pixels.
+
 ---
 
-## ⚙️ System Workflow
+## ⚙ System Workflow
 
 ```mermaid
 flowchart TD
@@ -149,7 +167,7 @@ flowchart TD
     C --> D["Hyperspectral Image Inspection"]
     D --> E["Data Quality Investigation"]
     E --> F["Spectral Preprocessing"]
-    F --> G["Exploratory Spectral Analysis"]
+    F --> G["Spatial and Spectral Analysis"]
     G --> H["Important Wavelength Identification"]
     H --> I["Machine Learning Classification"]
     I --> J["Model Evaluation"]
@@ -165,7 +183,7 @@ flowchart TD
 
 ---
 
-## 🛠️ Technology Stack
+## 🛠 Technology Stack
 
 | Technology | Application |
 |---|---|
@@ -183,6 +201,7 @@ flowchart TD
 ## 📂 Project Structure
 
 <details>
+
 <summary><b>Click to explore the project folders</b></summary>
 
 ```text
@@ -200,36 +219,56 @@ TerraSpectra-AI/
 │       ├── SWIR_prepared.csv
 │       ├── VNIR_cleaned.csv
 │       ├── VNIR_prepared.csv
+│       │
+│       ├── SWIR_column_maximum_analysis.csv
+│       ├── SWIR_maximum_value_comparison.csv
+│       ├── SWIR_spatial_neighbour_analysis.csv
+│       ├── SWIR_zero_neighbour_analysis.csv
+│       ├── SWIR_zero_values_per_band.csv
+│       ├── SWIR_zero_value_details.csv
+│       │
 │       ├── SWIR_spatial_maximum_distribution.png
 │       ├── SWIR_overall_maximum_heatmap.png
-│       ├── SWIR_column_maximum_analysis.csv
-│       └── SWIR_column_maximum_distribution.png
+│       ├── SWIR_column_maximum_distribution.png
+│       ├── SWIR_maximum_value_locations.png
+│       ├── SWIR_maximum_value_band_comparison.png
+│       ├── SWIR_zero_neighbour_analysis.png
+│       ├── SWIR_zero_values_per_band.png
+│       ├── SWIR_zero_value_locations.png
+│       ├── SWIR_coordinate_orientation_comparison.png
+│       ├── SWIR_leaf1_coordinate_verification.png
+│       └── SWIR_leaf_coordinate_check.png
 │
 ├── main.py
 ├── inspect_raw.py
 ├── inspect_swir.py
+├── investigate_swir_zero_values.py
+├── investigate_swir_spatial_neighbours.py
 ├── README.md
 └── .gitignore
 ```
 
 </details>
 
-*The structure represents the local development workspace. Large raw files and ignored data may not be available in the GitHub repository.*
+*The structure represents the development workspace. Large raw files and ignored data may not be available in the GitHub repository.*
 
 ---
 
 ## 🔬 Research and Implementation
 
 <details open>
+
 <summary><b>Phase 1 — Dataset Inspection</b> ✅ Completed</summary>
 
 - Inspected dataset metadata.
 - Identified VNIR and SWIR data.
 - Examined annotation information.
+- Reviewed dataset organization.
 
 </details>
 
 <details open>
+
 <summary><b>Phase 2 — Metadata Preparation</b> ✅ Completed</summary>
 
 Prepared annotation tables for both imaging modalities.
@@ -245,16 +284,19 @@ These are pot-level annotation records, not individual spectral images.
 </details>
 
 <details open>
+
 <summary><b>Phase 3 — SWIR Image Inspection</b> ✅ Completed</summary>
 
 - Loaded an actual SWIR hyperspectral image.
 - Inspected its dimensions and wavelength information.
 - Examined leaf-coordinate information.
 - Investigated measurements in the selected leaf region.
+- Verified image indexing and coordinate orientation.
 
 </details>
 
 <details open>
+
 <summary><b>Phase 4 — Spectral Quality Investigation</b> ✅ Initial Investigation Completed</summary>
 
 Investigated:
@@ -270,17 +312,20 @@ Further technical validation remains necessary.
 </details>
 
 <details open>
+
 <summary><b>Phase 5 — Spatial Maximum-Value Investigation</b> ✅ Completed</summary>
 
 Generated:
 
 - Spatial maximum-value distribution.
 - Overall maximum-value heatmap.
+- Maximum-value location analysis.
 - Band-wise spatial investigation.
 
 </details>
 
 <details open>
+
 <summary><b>Phase 6 — Column-wise Maximum-Value Investigation</b> ✅ Completed</summary>
 
 Investigated the distribution of maximum stored values (`65535`) across the 320 image columns.
@@ -297,6 +342,41 @@ Completed activities:
 
 - `SWIR_column_maximum_analysis.csv`
 - `SWIR_column_maximum_distribution.png`
+
+</details>
+
+<details open>
+
+<summary><b>Phase 7 — SWIR Spatial-Neighbour Investigation</b> ✅ Completed</summary>
+
+Investigated the spatial neighbourhoods of six zero-valued measurements identified in the selected SWIR leaf-coordinate region.
+
+**Completed activities:**
+
+- Loaded the SWIR hyperspectral image using Spectral Python.
+- Verified image dimensions of `420 × 320 × 256`.
+- Validated BIL image indexing.
+- Identified six target zero-valued measurements.
+- Examined surrounding spatial pixels in eight directions at the same spectral band.
+- Restricted neighbour analysis to pixels included in the leaf-coordinate mask.
+- Recorded neighbouring measurements in a CSV file.
+
+**Investigation results:**
+
+| Measurement | Observed Result |
+|---|---:|
+| Target zero-valued measurements | 6 |
+| Neighbour observations | 39 |
+| Non-zero observations | 37 |
+| Zero-valued observations | 2 |
+
+The two zero-valued neighbour observations represent the same adjacent pixel pair, counted in opposite directions.
+
+**Generated output:**
+
+- `SWIR_spatial_neighbour_analysis.csv`
+
+**Research note:** These findings describe the observed measurements only. The underlying cause of the zero values has not been established. No measurements have been removed or modified based on this investigation.
 
 </details>
 
@@ -331,7 +411,7 @@ The inspected SWIR image contains:
 
 ### Column-wise Maximum-Value Findings
 
-The Section 17 investigation identified eight columns with 420 maximum-value occurrences each.
+The column-wise investigation identified eight columns with 420 maximum-value occurrences each.
 
 | Image Column | Maximum-Value Count |
 |---:|---:|
@@ -352,11 +432,27 @@ The counts are calculated across all image rows and spectral bands. They do not 
 
 **Research note:** The maximum stored values have not been confirmed as sensor saturation or invalid measurements. Their meaning requires further investigation. No spectral values have been deleted or modified.
 
+### Zero-Value Spatial-Neighbour Findings
+
+The spatial-neighbour investigation examined six zero-valued measurements in the selected leaf-coordinate region.
+
+| Result | Count |
+|---|---:|
+| Target zero measurements | 6 |
+| Neighbour observations | 39 |
+| Non-zero neighbours | 37 |
+| Zero-valued neighbours | 2 |
+
+The two zero-valued neighbour observations are the same adjacent pixel pair recorded from opposite target directions.
+
+The investigation does not establish why these zero values occur.
+
 ---
 
-## 🖼️ Visualization Gallery
+## 🖼 Visualization Gallery
 
 <details open>
+
 <summary><b>📍 SWIR Spatial Maximum-Value Distribution</b></summary>
 
 ![SWIR Spatial Maximum Distribution](data/processed/SWIR_spatial_maximum_distribution.png)
@@ -364,13 +460,15 @@ The counts are calculated across all image rows and spectral bands. They do not 
 </details>
 
 <details open>
-<summary><b>🌡️ SWIR Overall Maximum-Value Heatmap</b></summary>
+
+<summary><b>🌡 SWIR Overall Maximum-Value Heatmap</b></summary>
 
 ![SWIR Overall Heatmap](data/processed/SWIR_overall_maximum_heatmap.png)
 
 </details>
 
 <details open>
+
 <summary><b>📊 SWIR Column-wise Maximum-Value Distribution</b></summary>
 
 ![SWIR Column Maximum Distribution](data/processed/SWIR_column_maximum_distribution.png)
@@ -378,12 +476,28 @@ The counts are calculated across all image rows and spectral bands. They do not 
 </details>
 
 <details>
+
 <summary><b>Other Generated Visualizations</b></summary>
 
-- SWIR leaf-coordinate verification.
-- Maximum-value locations.
-- Maximum-value comparison.
-- Band-wise maximum-value comparison.
+**Maximum-value locations**
+
+![SWIR Maximum Value Locations](data/processed/SWIR_maximum_value_locations.png)
+
+**Maximum-value band comparison**
+
+![SWIR Maximum Value Band Comparison](data/processed/SWIR_maximum_value_band_comparison.png)
+
+**Zero-value neighbour analysis**
+
+![SWIR Zero Neighbour Analysis](data/processed/SWIR_zero_neighbour_analysis.png)
+
+**Zero values per spectral band**
+
+![SWIR Zero Values Per Band](data/processed/SWIR_zero_values_per_band.png)
+
+**Zero-value locations**
+
+![SWIR Zero Value Locations](data/processed/SWIR_zero_value_locations.png)
 
 </details>
 
@@ -399,6 +513,8 @@ The counts are calculated across all image rows and spectral bands. They do not 
 | Initial quality investigation | 🟢 Completed |
 | Spatial maximum analysis | 🟢 Completed |
 | Column-wise investigation | 🟢 Completed |
+| Initial spatial-neighbour investigation | 🟢 Completed |
+| Broader spatial quality validation | 🟡 In Progress |
 | Full spectral preprocessing | ⚪ Planned |
 | Wavelength identification | ⚪ Planned |
 | Disease classification | ⚪ Planned |
@@ -423,39 +539,54 @@ git clone https://github.com/sanjanamdinfo/TerraSpectra-AI.git
 cd TerraSpectra-AI
 ```
 
-### 3. Install dependencies
+### 3. Create a virtual environment
+
+```bash
+python -m venv venv
+```
+
+### 4. Activate the environment
+
+**Windows PowerShell:**
+
+```powershell
+.\venv\Scripts\Activate.ps1
+```
+
+### 5. Install dependencies
 
 ```bash
 pip install numpy pandas matplotlib spectral
 ```
 
-### 4. Execute metadata preparation
+### 6. Execute metadata preparation
 
 ```bash
 python main.py
 ```
 
-### 5. Inspect raw dataset information
+### 7. Inspect raw dataset information
 
 ```bash
 python inspect_raw.py
 ```
 
-### 6. Run SWIR image inspection
+### 8. Run SWIR image inspection
 
 ```bash
 python inspect_swir.py
 ```
 
-**Note:** The SWIR script requires the corresponding local `.hdr`, `.hyspex`, and leaf-coordinate files. These raw sample files are not included in the repository.
+**Note:** The SWIR inspection scripts require the corresponding local `.hdr`, `.hyspex`, and leaf-coordinate files. These raw sample files may not be included in the repository.
 
 ---
 
-## ⚠️ Research Limitations
+## ⚠ Research Limitations
 
 - Current image-level findings are based on one inspected SWIR sample.
 - The maximum stored values require technical validation.
-- Coordinate orientation requires confirmation.
+- The cause of zero-valued measurements remains unknown.
+- Coordinate orientation and mapping require continued validation.
 - Full-dataset spectral preprocessing is not yet completed.
 - Disease classification and model performance have not yet been established.
 - Early detection claims require suitable time-linked experimental validation.
