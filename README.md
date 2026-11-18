@@ -381,6 +381,67 @@ The two zero-valued neighbour observations represent the same adjacent pixel pai
 </details>
 
 ---
+## 🔍 Phase 8 — VNIR & SWIR Prepared Dataset Validation
+
+**Status: ✅ Completed**
+
+Validated the prepared VNIR and SWIR datasets to check their structure, data quality, missing values, and sample distribution.
+
+**Completed activities:**
+
+- Loaded the VNIR and SWIR prepared datasets.
+- Checked dataset dimensions and column information.
+- Identified missing values.
+- Checked duplicate rows and duplicate Pot IDs.
+- Checked for infinite values.
+- Examined treatment and genotype distributions.
+- Identified completely empty measurement columns.
+- Exported the validation summary to a CSV file.
+
+**Dataset overview:**
+
+| Attribute | VNIR | SWIR |
+|---|---:|---:|
+| Rows | 48 | 48 |
+| Columns | 39 | 39 |
+| Metadata columns | 3 | 3 |
+| Measurement columns | 36 | 36 |
+| Missing values | 553 | 553 |
+| Duplicate rows | 0 | 0 |
+| Duplicate Pot IDs | 0 | 0 |
+| Infinite values | 0 | 0 |
+| Completely empty columns | 3 | 3 |
+
+**Treatment distribution:**
+
+| Treatment | Records |
+|---|---:|
+| Infected | 24 |
+| Non-infected | 24 |
+
+**Genotype distribution:**
+
+| Genotype | Records |
+|---|---:|
+| EPO_67 | 24 |
+| EPO_68 | 24 |
+
+**Completely empty measurement columns:**
+
+- `DPI_18_D`
+- `DPI_19_D`
+- `DPI_20_D`
+
+Each of these columns contains 48 missing values in both datasets.
+
+**Generated files:**
+
+- `validate_prepared_datasets.py`
+- `data/processed/prepared_dataset_validation.csv`
+
+**Research note:** Missing values and completely empty columns were documented during validation. No missing values were automatically imputed, and no columns were deleted or replaced with zeros.
+
+**Outcome:** Initial structural and data-quality validation of both prepared datasets was completed successfully.
 
 ## 📈 Current Investigation Results
 
