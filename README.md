@@ -381,7 +381,7 @@ The two zero-valued neighbour observations represent the same adjacent pixel pai
 </details>
 
 ---
-## 🔍 Phase 8 — VNIR & SWIR Prepared Dataset Validation
+## Phase 8: VNIR & SWIR Prepared Dataset Validation
 
 **Status: ✅ Completed**
 
