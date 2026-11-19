@@ -667,6 +667,77 @@ python inspect_swir.py
 - Build an interactive results dashboard.
 
 ---
+## Phase 9: VNIR & SWIR Data Acquisition Completeness Analysis
+
+**Status: ✅ Completed**
+
+Performed an acquisition completeness analysis using the VNIR and SWIR annotation tables to understand leaf acquisition patterns across observation dates, pot sides, treatment groups, and genotypes.
+
+### Completed activities
+
+- Loaded and inspected the SWIR and VNIR acquisition annotation files.
+- Identified 48 pot records across 18 observation dates.
+- Counted recorded leaves for both pot sides (G and D).
+- Identified empty cells representing no HSI acquisition due to sampling.
+- Identified `NA` entries representing technical malfunctions.
+- Compared acquisition patterns between VNIR and SWIR.
+- Examined acquisition records by treatment and genotype.
+- Validated group-level totals against overall sensor summaries.
+
+### Acquisition completeness results
+
+| Attribute | VNIR | SWIR |
+|---|---:|---:|
+| Pot records | 48 | 48 |
+| Observation dates | 18 | 18 |
+| Expected date-side entries | 1,728 | 1,728 |
+| Numeric entries | 1,175 | 1,175 |
+| Empty cells | 552 | 552 |
+| Technical NA entries | 1 | 1 |
+| Unexpected values | 0 | 0 |
+
+### Acquisition groups
+
+The analysis covered four treatment-genotype combinations:
+
+- Infected — EPO_67
+- Infected — EPO_68
+- Non-infected — EPO_67
+- Non-infected — EPO_68
+
+Each group contains 12 pot records.
+
+### Key observations
+
+- Acquisition coverage varies across observation dates and pot sides.
+- The number of recorded leaves decreases at several later observation dates.
+- The D side has no recorded leaf acquisitions at DPI 18, 19, and 20.
+- The G side continues to have recorded acquisitions at these dates.
+- VNIR and SWIR show very similar acquisition patterns, with small differences in recorded leaf counts at DPI 4.
+- Each sensor annotation table contains one technical `NA` entry at DPI 10 on the G side.
+
+### Generated files
+
+- `analyze_acquisition_completeness.py`
+- `data/processed/acquisition_completeness_summary.csv`
+- `data/processed/acquisition_completeness_by_group.csv`
+
+### Validation
+
+The group-level results were compared with the overall sensor summaries.
+
+**Validation results:**
+
+| Validation check | Result |
+|---|---|
+| Group totals match overall totals | True |
+| Treatment-genotype combinations | 4 |
+| Sensors analysed | 2 |
+| Unexpected values | 0 |
+
+**Research note:** Empty cells and technical `NA` values were treated as separate categories according to the dataset documentation. Empty cells indicate no HSI acquisition due to sampling, whereas `NA` indicates a technical malfunction. No missing entries were automatically filled or removed.
+
+**Outcome:** VNIR and SWIR acquisition completeness analysis and group-level validation were successfully completed. This analysis describes the acquisition annotation records, not the quality of individual hyperspectral image pixels.
 
 <div align="center">
 
