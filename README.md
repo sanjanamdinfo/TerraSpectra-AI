@@ -1,208 +1,283 @@
-<div align="center">
-
 # 🌱 TerraSpectra-AI
-
 ### Explainable Spectral Intelligence for Wheat Disease Detection
 
-**Turning Hyperspectral Data into Explainable Agricultural Intelligence**
-
-<br>
-
-![Python](https://img.shields.io/badge/Python-3.x-3776AB?style=for-the-badge&logo=python&logoColor=white)
-![Data Science](https://img.shields.io/badge/Data%20Science-Project-2E8B57?style=for-the-badge)
-![AI](https://img.shields.io/badge/Explainable-AI-8A2BE2?style=for-the-badge)
-![Status](https://img.shields.io/badge/Status-Under%20Development-orange?style=for-the-badge)
-
-<br>
-
-[📊 Dataset](#-dataset) · [🔬 Research](#-research-and-implementation) · [📈 Results](#-current-investigation-results) · [🛠 Technologies](#-technology-stack) · [🚀 Roadmap](#-project-roadmap)
-
-</div>
+<p align="center">
+  <strong>Understanding Wheat Disease Through Hyperspectral Imaging and Explainable Artificial Intelligence</strong>
+</p>
 
 ---
 
-## 🌍 About the Project
+## 📌 Table of Contents
 
-TerraSpectra-AI is an agricultural data science project that investigates hyperspectral imaging for wheat disease analysis.
-
-It uses Visible-Near Infrared (VNIR) and Short-Wave Infrared (SWIR) data to explore spectral differences between infected and non-infected wheat leaf samples.
-
-The project aims to combine:
-
-- Hyperspectral Image Analysis
-- Spectral Feature Investigation
-- Important Wavelength Identification
-- Machine Learning Classification
-- Explainable Artificial Intelligence (XAI)
-
-The goal is to develop a scientifically grounded and interpretable approach to wheat disease classification.
-
----
-
-## 🎯 Project Highlights
-
-| 🔍 Research Area | 💡 Project Focus |
-|---|---|
-| Hyperspectral Imaging | Analyse VNIR and SWIR measurements |
-| Data Quality | Investigate unusual spectral values |
-| Spectral Analysis | Explore wavelength-related patterns |
-| Feature Identification | Identify informative wavelengths |
-| Machine Learning | Classify infected and non-infected samples |
-| Explainable AI | Understand model predictions |
-
----
-
-## 🧭 Quick Navigation
-
-<details open>
-
-<summary><b>📚 Explore Project Documentation</b></summary>
-
-- [Project Overview](#-about-the-project)
+- [Project Overview](#-project-overview)
 - [Problem Statement](#-problem-statement)
-- [Objectives](#-research-objectives)
-- [Dataset](#-dataset)
+- [Project Objectives](#-project-objectives)
+- [Key Features](#-key-features)
+- [Dataset Information](#-dataset-information)
 - [System Workflow](#-system-workflow)
-- [Technology Stack](#-technology-stack)
+- [Project Progress](#-project-progress)
+- [SWIR Sample Quality Validation](#-swir-sample-quality-validation)
+- [Visual Results](#-visual-results)
+- [Technologies Used](#-technologies-used)
 - [Project Structure](#-project-structure)
-- [Research and Implementation](#-research-and-implementation)
-- [Current Investigation Results](#-current-investigation-results)
-- [Visualization Gallery](#-visualization-gallery)
-- [Project Roadmap](#-project-roadmap)
-- [Installation](#-getting-started)
-- [Limitations](#-research-limitations)
-
-</details>
+- [Installation and Setup](#-installation-and-setup)
+- [Future Roadmap](#-future-roadmap)
+- [Expected Outcome](#-expected-outcome)
+- [Project Information](#-project-information)
 
 ---
 
-## ❗ Problem Statement
+## 🌾 Project Overview
 
-Traditional visual inspection may not reveal all spectral changes associated with plant disease.
+**TerraSpectra-AI** is an individual academic project focused on developing an explainable artificial intelligence system for wheat disease detection using hyperspectral imaging.
 
-Hyperspectral imaging provides measurements across multiple wavelengths, creating opportunities to investigate disease-related spectral patterns.
+The project investigates Visible-Near Infrared (VNIR) and Short-Wave Infrared (SWIR) spectral information collected from wheat leaves to distinguish infected and non-infected samples.
 
-However, analysing this data requires careful handling of high-dimensional information, unusual pixel values, image coordinates, and model interpretability.
+Unlike conventional image classification approaches, hyperspectral imaging captures information across multiple wavelength bands.
 
-**TerraSpectra-AI investigates how hyperspectral analysis and explainable machine learning can help address these challenges.**
+The project aims to identify informative wavelengths associated with disease classification and develop interpretable machine learning models.
 
----
+### 🎯 Main Idea
 
-## 🎯 Research Objectives
-
-- [x] Select a wheat disease hyperspectral dataset.
-- [x] Inspect dataset metadata.
-- [x] Prepare VNIR and SWIR annotation tables.
-- [x] Inspect an actual SWIR hyperspectral image.
-- [x] Investigate unusual maximum-value measurements.
-- [x] Complete initial spatial maximum-value investigation.
-- [x] Complete column-wise maximum-value investigation.
-- [x] Complete initial SWIR spatial-neighbour investigation.
-- [ ] Complete broader spatial quality validation.
-- [ ] Extend processing to relevant samples.
-- [ ] Identify important wavelengths.
-- [ ] Develop disease classification models.
-- [ ] Evaluate model performance.
-- [ ] Apply Explainable AI techniques.
+**Spectral Information → Important Wavelength Identification → Disease Classification → Explainable Predictions**
 
 ---
 
-## 📊 Dataset
+## ⚠️ Problem Statement
 
-<details open>
+Wheat diseases can negatively affect crop health and agricultural productivity.
 
-<summary><b>Dataset Information</b></summary>
+Traditional disease identification methods often depend on visible symptoms and manual inspection.
 
-| Attribute | Details |
+Hyperspectral imaging provides additional spectral information that may help distinguish healthy and infected plant samples.
+
+However, identifying the most informative wavelengths and understanding how machine learning models make predictions remain important challenges.
+
+TerraSpectra-AI explores these challenges through spectral analysis, machine learning and explainable AI.
+
+---
+
+## 🎯 Project Objectives
+
+1. Collect and inspect wheat hyperspectral imaging data.
+2. Prepare and validate VNIR and SWIR spectral datasets.
+3. Analyse spectral characteristics of infected and non-infected samples.
+4. Identify important wavelengths for disease classification.
+5. Develop machine learning models for wheat disease detection.
+6. Apply Explainable AI techniques to understand model predictions.
+7. Compare classification performance using full-spectrum and selected-wavelength features.
+
+---
+
+## ✨ Key Features
+
+| Feature | Description |
 |---|---|
-| Dataset | Early detection of Septoria infection on wheat leaves using hyperspectral imaging data |
-| Repository | Recherche Data Gouv |
-| DOI | `10.57745/WVP0FJ` |
-| Crop | Wheat |
-| Disease | Septoria |
-| Modalities | VNIR and SWIR |
-| Genotypes | EPO_67 and EPO_68 |
-| Treatment groups | Infected and Non-infected |
+| 🌱 Hyperspectral Analysis | Analyse VNIR and SWIR information. |
+| 🧹 Data Preprocessing | Inspect, validate and prepare spectral data. |
+| 🔬 Spectral Quality Validation | Investigate spectral measurements and zero values. |
+| 🎯 Wavelength Selection | Identify informative spectral bands. |
+| 🤖 Disease Classification | Develop infected/non-infected classification models. |
+| 🧠 Explainable AI | Interpret model predictions. |
+| 📊 Model Evaluation | Evaluate and compare model performance. |
 
-**Dataset source:** [Open official dataset repository](https://entrepot.recherche.data.gouv.fr/dataset.xhtml?persistentId=doi:10.57745/WVP0FJ)
-
-</details>
-
-### 🔬 Inspected SWIR Sample
-
-| Technical Specification | Value |
-|---|---:|
-| Image rows | 420 |
-| Image columns | 320 |
-| Spectral bands | 256 |
-| Image dimensions | 420 × 320 × 256 |
-| Wavelength range | 964.18–2494.39 nm |
-| Source data type | uint16 |
-| Interleave | BIL |
-| Sensor | SWIR_320me_SN3518 |
-| Acquisition date | 11 March 2021 |
-
-These specifications describe the inspected SWIR sample, not the entire dataset.
-
-### Prepared Sample Information
-
-| Category | Count |
-|---|---:|
-| Total records per prepared dataset | 48 |
-| Infected | 24 |
-| Non-infected | 24 |
-| EPO_67 genotype | 24 |
-| EPO_68 genotype | 24 |
-
-These are prepared annotation records, not individual spectral image pixels.
+*Features are being developed progressively. See the project progress section for implementation status.*
 
 ---
 
-## ⚙ System Workflow
+## 🧬 Dataset Information
+
+### Dataset Name
+
+**Early detection of Septoria infection on wheat leaves using hyperspectral imaging data**
+
+- Repository: Recherche Data Gouv
+- DOI: `10.57745/WVP0FJ`
+- Data modalities: VNIR and SWIR hyperspectral imaging
+- Sample information: Wheat genotype, treatment, leaf and measurement dates.
+- Classes: Infected and Non-infected.
+
+### Spectral Data Modalities
+
+| Data Type | Description |
+|---|---|
+| VNIR | Visible-Near Infrared spectral imaging |
+| SWIR | Short-Wave Infrared spectral imaging |
+
+### Dataset Metadata
+
+The dataset includes information such as:
+
+- Pot identification
+- Leaf identification
+- Genotype
+- Treatment
+- Confidence level
+- Measurement dates
+
+**Important:** The dataset contains controlled hyperspectral wheat-leaf measurements, not satellite imagery.
+
+---
+
+## 🔄 System Workflow
+
+The planned system follows this workflow:
 
 ```mermaid
 flowchart TD
-    A["🌾 Dataset Collection"] --> B["Dataset Inspection"]
-    B --> C["Metadata Preparation"]
-    C --> D["Hyperspectral Image Inspection"]
-    D --> E["Data Quality Investigation"]
-    E --> F["Spectral Preprocessing"]
-    F --> G["Spatial and Spectral Analysis"]
-    G --> H["Important Wavelength Identification"]
-    H --> I["Machine Learning Classification"]
-    I --> J["Model Evaluation"]
-    J --> K["Explainable AI"]
-    K --> L["Interpretable Results"]
-
-    style A fill:#d8f3dc,stroke:#2d6a4f
-    style E fill:#fff3cd,stroke:#b08900
-    style K fill:#e9d5ff,stroke:#7e22ce
+    A["Wheat Hyperspectral Dataset"] --> B["VNIR and SWIR Data"]
+    B --> C["Data Inspection and Validation"]
+    C --> D["Spectral Preprocessing"]
+    D --> E["Exploratory Spectral Analysis"]
+    E --> F["Important Wavelength Identification"]
+    F --> G["Machine Learning Classification"]
+    G --> H["Explainable AI"]
+    H --> I["Model Evaluation"]
+    I --> J["Interpretable Disease Predictions"]
 ```
-
-*The diagram represents the planned end-to-end workflow, not a claim that every stage is implemented.*
 
 ---
 
-## 🛠 Technology Stack
+## 📊 Project Progress
 
-| Technology | Application |
+Project development is ongoing.
+
+| Development Stage | Status |
 |---|---|
-| 🐍 Python | Project implementation |
-| 🔢 NumPy | Numerical computation |
-| 🐼 Pandas | Dataset preparation |
-| 📊 Matplotlib | Data visualization |
-| 🔬 Spectral Python | Hyperspectral image inspection |
-| 💻 VS Code | Development environment |
-| 🌿 Git | Version control |
-| 🐙 GitHub | Project hosting |
+| Project setup and GitHub repository | ✅ Completed |
+| Dataset collection | ✅ Completed |
+| Raw and processed data organisation | ✅ Completed |
+| Initial metadata inspection | ✅ Completed |
+| Basic metadata EDA | ✅ Completed |
+| SWIR image inspection | ✅ Completed for one sample |
+| Leaf-coordinate inspection | ✅ Completed |
+| Leaf spectral extraction | ✅ Completed for one sample |
+| SWIR zero-value quality validation | ✅ Completed for one sample |
+| Complete spectral quality investigation | 🔄 In progress |
+| Complete spectral preprocessing | ⏳ Pending |
+| VNIR/SWIR spectral analysis | ⏳ Pending |
+| Important wavelength identification | ⏳ Pending |
+| Disease classification | ⏳ Pending |
+| Explainable AI implementation | ⏳ Pending |
+| Model evaluation | ⏳ Pending |
+
+---
+
+## 🔬 SWIR Sample Quality Validation
+
+On **20 November 2026**, an additional quality validation investigation was performed on one SWIR hyperspectral sample.
+
+### 1. Sample Information
+
+| Parameter | Details |
+|---|---|
+| Sample | `01_D` |
+| Acquisition Date | 11 March 2021 |
+| Image Dimensions | 420 × 320 × 256 |
+| Interleave | BIL |
+| Data Type | Unsigned 16-bit integer |
+| Spectral Bands | 256 |
+| Wavelength Range | Approximately 964.18–2494.38 nm |
+| Leaf Coordinates | 3,846 |
+
+### 2. Spectral Measurement Validation
+
+The extracted leaf region was checked across all 256 spectral bands.
+
+| Validation Metric | Result |
+|---|---:|
+| Total Leaf Pixels | 3,846 |
+| Total Spectral Bands | 256 |
+| Total Measurements | 984,576 |
+| Zero Measurements | 6 |
+| Bands Containing Zero Values | 5 |
+| ENVI Ignore-Value Measurements (16383) | 0 |
+| Zero Measurement Rate | Approximately 0.00061% |
+
+### 3. Zero-Value Band Details
+
+Six zero measurements were identified across five spectral bands.
+
+| Spectral Band | Number of Zero Measurements |
+|---|---:|
+| 13 | 1 |
+| 163 | 2 |
+| 165 | 1 |
+| 214 | 1 |
+| 248 | 1 |
+| **Total** | **6** |
+
+### 4. Validation Activities
+
+The investigation included:
+
+- Verification of hyperspectral image indexing.
+- Validation of leaf-coordinate membership.
+- Identification of zero-valued spectral measurements.
+- Comparison with neighbouring pixel measurements.
+- Leaf-specific neighbourhood analysis.
+- Quality analysis across all 256 spectral bands.
+- Verification of ENVI ignore-value measurements.
+
+### 5. Findings
+
+- All six identified zero measurements belong to the selected leaf-coordinate region.
+- The six zero measurements are sparse compared with the total number of measurements.
+- No ENVI ignore-value measurements were identified in the selected leaf region.
+- The original hyperspectral data was not modified.
+- The physical cause of the zero measurements has not yet been established.
+
+**Note:** These findings apply to the investigated SWIR sample only. Further validation is required before drawing conclusions about other samples.
+
+---
+
+## 🖼️ Visual Results
+
+### 1. SWIR Leaf Coordinate Inspection
+
+This visualisation compares the leaf-coordinate mapping against the hyperspectral image.
+
+![SWIR Leaf Coordinate Check](data/processed/SWIR_leaf_coordinate_check.png)
+
+### 2. Maximum Spectral Value Locations
+
+This plot displays the spatial locations of maximum-value measurements identified during the initial SWIR spectral quality investigation.
+
+![SWIR Maximum Value Locations](data/processed/SWIR_maximum_value_locations.png)
+
+<details>
+<summary>📌 View initial SWIR inspection findings</summary>
+
+- Image dimensions: 420 × 320 × 256
+- Wavelength range: 964.18–2494.39 nm
+- Extracted leaf pixels: 3,846
+- Wavelength bands: 256
+- Extracted measurements: 984,576
+- Maximum-value measurements: 92
+- Affected wavelength bands: 8
+
+The maximum-value measurements are still under investigation. They have not been automatically removed or classified as invalid.
+
+</details>
+
+---
+
+## 🛠️ Technologies Used
+
+| Technology | Purpose |
+|---|---|
+| Python | Main programming language |
+| NumPy | Numerical operations |
+| Pandas | Dataset processing |
+| Matplotlib | Data visualisation |
+| Spectral Python | Hyperspectral image inspection |
+| VS Code | Development environment |
+| Git | Version control |
+| GitHub | Project repository |
 
 ---
 
 ## 📂 Project Structure
-
-<details>
-
-<summary><b>Click to explore the project folders</b></summary>
 
 ```text
 TerraSpectra-AI/
@@ -212,545 +287,163 @@ TerraSpectra-AI/
 │   │   ├── Data_description.csv
 │   │   ├── SWIR_data.csv
 │   │   ├── VNIR_data.csv
-│   │   └── SWIR_sample/
+│   │   └── SWIR_sample/          # Local raw sample; Git-ignored
 │   │
 │   └── processed/
 │       ├── SWIR_cleaned.csv
 │       ├── SWIR_prepared.csv
 │       ├── VNIR_cleaned.csv
 │       ├── VNIR_prepared.csv
-│       │
-│       ├── SWIR_column_maximum_analysis.csv
-│       ├── SWIR_maximum_value_comparison.csv
-│       ├── SWIR_spatial_neighbour_analysis.csv
-│       ├── SWIR_zero_neighbour_analysis.csv
-│       ├── SWIR_zero_values_per_band.csv
-│       ├── SWIR_zero_value_details.csv
-│       │
-│       ├── SWIR_spatial_maximum_distribution.png
-│       ├── SWIR_overall_maximum_heatmap.png
-│       ├── SWIR_column_maximum_distribution.png
-│       ├── SWIR_maximum_value_locations.png
-│       ├── SWIR_maximum_value_band_comparison.png
-│       ├── SWIR_zero_neighbour_analysis.png
-│       ├── SWIR_zero_values_per_band.png
-│       ├── SWIR_zero_value_locations.png
-│       ├── SWIR_coordinate_orientation_comparison.png
-│       ├── SWIR_leaf1_coordinate_verification.png
-│       └── SWIR_leaf_coordinate_check.png
+│       ├── SWIR_leaf_coordinate_check.png
+│       └── SWIR_maximum_value_locations.png
 │
 ├── main.py
 ├── inspect_raw.py
 ├── inspect_swir.py
-├── investigate_swir_zero_values.py
+├── analyze_acquisition_completeness.py
 ├── investigate_swir_spatial_neighbours.py
-├── README.md
-└── .gitignore
+├── investigate_swir_zero_values.py
+├── analyze_all_swir_bands.py
+├── analyze_leaf_band_quality.py
+├── analyze_zero_neighbours.py
+├── check_swir_indexing.py
+├── validate_swir_coordinates.py
+│
+├── validate_prepared_datasets.py
+├── verify_coordinates.py
+├── verify_leaf_coordinates.py
+├── .gitignore
+└── README.md
 ```
 
-</details>
-
-*The structure represents the development workspace. Large raw files and ignored data may not be available in the GitHub repository.*
+**Dataset note:** The local `data/raw/SWIR_sample/` folder is excluded from GitHub because it contains large raw hyperspectral files. The sample files must be obtained separately to run the corresponding SWIR validation scripts.
 
 ---
 
-## 🔬 Research and Implementation
+## 🚀 Installation and Setup
 
-<details open>
-
-<summary><b>Phase 1 — Dataset Inspection</b> ✅ Completed</summary>
-
-- Inspected dataset metadata.
-- Identified VNIR and SWIR data.
-- Examined annotation information.
-- Reviewed dataset organization.
-
-</details>
-
-<details open>
-
-<summary><b>Phase 2 — Metadata Preparation</b> ✅ Completed</summary>
-
-Prepared annotation tables for both imaging modalities.
-
-| Treatment | Records |
-|---|---:|
-| Infected | 24 |
-| Non-infected | 24 |
-| Total | 48 |
-
-These are pot-level annotation records, not individual spectral images.
-
-</details>
-
-<details open>
-
-<summary><b>Phase 3 — SWIR Image Inspection</b> ✅ Completed</summary>
-
-- Loaded an actual SWIR hyperspectral image.
-- Inspected its dimensions and wavelength information.
-- Examined leaf-coordinate information.
-- Investigated measurements in the selected leaf region.
-- Verified image indexing and coordinate orientation.
-
-</details>
-
-<details open>
-
-<summary><b>Phase 4 — Spectral Quality Investigation</b> ✅ Initial Investigation Completed</summary>
-
-Investigated:
-
-- Zero-valued measurements.
-- Maximum stored values.
-- Affected spectral bands.
-- Leaf-region measurements.
-- Neighbouring wavelength values.
-
-Further technical validation remains necessary.
-
-</details>
-
-<details open>
-
-<summary><b>Phase 5 — Spatial Maximum-Value Investigation</b> ✅ Completed</summary>
-
-Generated:
-
-- Spatial maximum-value distribution.
-- Overall maximum-value heatmap.
-- Maximum-value location analysis.
-- Band-wise spatial investigation.
-
-</details>
-
-<details open>
-
-<summary><b>Phase 6 — Column-wise Maximum-Value Investigation</b> ✅ Completed</summary>
-
-Investigated the distribution of maximum stored values (`65535`) across the 320 image columns.
-
-Completed activities:
-
-- Counted maximum-value occurrences across image columns.
-- Identified columns with the highest counts.
-- Generated a column-wise analysis CSV file.
-- Created a column-wise maximum-value distribution graph.
-- Examined the concentration of maximum-value occurrences.
-
-**Generated outputs:**
-
-- `SWIR_column_maximum_analysis.csv`
-- `SWIR_column_maximum_distribution.png`
-
-</details>
-
-<details open>
-
-<summary><b>Phase 7 — SWIR Spatial-Neighbour Investigation</b> ✅ Completed</summary>
-
-Investigated the spatial neighbourhoods of six zero-valued measurements identified in the selected SWIR leaf-coordinate region.
-
-**Completed activities:**
-
-- Loaded the SWIR hyperspectral image using Spectral Python.
-- Verified image dimensions of `420 × 320 × 256`.
-- Validated BIL image indexing.
-- Identified six target zero-valued measurements.
-- Examined surrounding spatial pixels in eight directions at the same spectral band.
-- Restricted neighbour analysis to pixels included in the leaf-coordinate mask.
-- Recorded neighbouring measurements in a CSV file.
-
-**Investigation results:**
-
-| Measurement | Observed Result |
-|---|---:|
-| Target zero-valued measurements | 6 |
-| Neighbour observations | 39 |
-| Non-zero observations | 37 |
-| Zero-valued observations | 2 |
-
-The two zero-valued neighbour observations represent the same adjacent pixel pair, counted in opposite directions.
-
-**Generated output:**
-
-- `SWIR_spatial_neighbour_analysis.csv`
-
-**Research note:** These findings describe the observed measurements only. The underlying cause of the zero values has not been established. No measurements have been removed or modified based on this investigation.
-
-</details>
-
----
-## Phase 8: VNIR & SWIR Prepared Dataset Validation
-
-**Status: ✅ Completed**
-
-Validated the prepared VNIR and SWIR datasets to check their structure, data quality, missing values, and sample distribution.
-
-**Completed activities:**
-
-- Loaded the VNIR and SWIR prepared datasets.
-- Checked dataset dimensions and column information.
-- Identified missing values.
-- Checked duplicate rows and duplicate Pot IDs.
-- Checked for infinite values.
-- Examined treatment and genotype distributions.
-- Identified completely empty measurement columns.
-- Exported the validation summary to a CSV file.
-
-**Dataset overview:**
-
-| Attribute | VNIR | SWIR |
-|---|---:|---:|
-| Rows | 48 | 48 |
-| Columns | 39 | 39 |
-| Metadata columns | 3 | 3 |
-| Measurement columns | 36 | 36 |
-| Missing values | 553 | 553 |
-| Duplicate rows | 0 | 0 |
-| Duplicate Pot IDs | 0 | 0 |
-| Infinite values | 0 | 0 |
-| Completely empty columns | 3 | 3 |
-
-**Treatment distribution:**
-
-| Treatment | Records |
-|---|---:|
-| Infected | 24 |
-| Non-infected | 24 |
-
-**Genotype distribution:**
-
-| Genotype | Records |
-|---|---:|
-| EPO_67 | 24 |
-| EPO_68 | 24 |
-
-**Completely empty measurement columns:**
-
-- `DPI_18_D`
-- `DPI_19_D`
-- `DPI_20_D`
-
-Each of these columns contains 48 missing values in both datasets.
-
-**Generated files:**
-
-- `validate_prepared_datasets.py`
-- `data/processed/prepared_dataset_validation.csv`
-
-**Research note:** Missing values and completely empty columns were documented during validation. No missing values were automatically imputed, and no columns were deleted or replaced with zeros.
-
-**Outcome:** Initial structural and data-quality validation of both prepared datasets was completed successfully.
-
-## 📈 Current Investigation Results
-
-The inspected SWIR image contains:
-
-| Measurement | Observed Result |
-|---|---:|
-| Total image values | 34,406,400 |
-| Zero values | 527 |
-| Maximum values (65,535) | 3,577 |
-| NaN values | 0 |
-| Infinite values | 0 |
-| Leaf-coordinate pixels | 3,846 |
-| Maximum values in leaf region | 92 |
-
-### Affected Spectral Bands
-
-| Band | Wavelength | Maximum Count |
-|---:|---:|---:|
-| 74 | 1408.24 nm | 11 |
-| 87 | 1486.25 nm | 11 |
-| 90 | 1504.25 nm | 12 |
-| 92 | 1516.26 nm | 11 |
-| 104 | 1588.27 nm | 11 |
-| 121 | 1690.28 nm | 12 |
-| 125 | 1714.28 nm | 12 |
-| 255 | 2494.39 nm | 12 |
-
-### Column-wise Maximum-Value Findings
-
-The column-wise investigation identified eight columns with 420 maximum-value occurrences each.
-
-| Image Column | Maximum-Value Count |
-|---:|---:|
-| 14 | 420 |
-| 33 | 420 |
-| 135 | 420 |
-| 290 | 420 |
-| 292 | 420 |
-| 296 | 420 |
-| 300 | 420 |
-| 302 | 420 |
-
-Other columns also contained smaller numbers of maximum-value occurrences.
-
-**Research interpretation:** Maximum-value occurrences are concentrated in particular image columns rather than being evenly distributed. This suggests a spatial pattern that deserves further investigation.
-
-The counts are calculated across all image rows and spectral bands. They do not establish the cause of the pattern.
-
-**Research note:** The maximum stored values have not been confirmed as sensor saturation or invalid measurements. Their meaning requires further investigation. No spectral values have been deleted or modified.
-
-### Zero-Value Spatial-Neighbour Findings
-
-The spatial-neighbour investigation examined six zero-valued measurements in the selected leaf-coordinate region.
-
-| Result | Count |
-|---|---:|
-| Target zero measurements | 6 |
-| Neighbour observations | 39 |
-| Non-zero neighbours | 37 |
-| Zero-valued neighbours | 2 |
-
-The two zero-valued neighbour observations are the same adjacent pixel pair recorded from opposite target directions.
-
-The investigation does not establish why these zero values occur.
-
----
-
-## 🖼 Visualization Gallery
-
-<details open>
-
-<summary><b>📍 SWIR Spatial Maximum-Value Distribution</b></summary>
-
-![SWIR Spatial Maximum Distribution](data/processed/SWIR_spatial_maximum_distribution.png)
-
-</details>
-
-<details open>
-
-<summary><b>🌡 SWIR Overall Maximum-Value Heatmap</b></summary>
-
-![SWIR Overall Heatmap](data/processed/SWIR_overall_maximum_heatmap.png)
-
-</details>
-
-<details open>
-
-<summary><b>📊 SWIR Column-wise Maximum-Value Distribution</b></summary>
-
-![SWIR Column Maximum Distribution](data/processed/SWIR_column_maximum_distribution.png)
-
-</details>
-
-<details>
-
-<summary><b>Other Generated Visualizations</b></summary>
-
-**Maximum-value locations**
-
-![SWIR Maximum Value Locations](data/processed/SWIR_maximum_value_locations.png)
-
-**Maximum-value band comparison**
-
-![SWIR Maximum Value Band Comparison](data/processed/SWIR_maximum_value_band_comparison.png)
-
-**Zero-value neighbour analysis**
-
-![SWIR Zero Neighbour Analysis](data/processed/SWIR_zero_neighbour_analysis.png)
-
-**Zero values per spectral band**
-
-![SWIR Zero Values Per Band](data/processed/SWIR_zero_values_per_band.png)
-
-**Zero-value locations**
-
-![SWIR Zero Value Locations](data/processed/SWIR_zero_value_locations.png)
-
-</details>
-
----
-
-## 🚀 Project Roadmap
-
-| Development Stage | Status |
-|---|---|
-| Dataset collection | 🟢 Completed for current working data |
-| Metadata preparation | 🟢 Completed |
-| SWIR image inspection | 🟢 Completed for one sample |
-| Initial quality investigation | 🟢 Completed |
-| Spatial maximum analysis | 🟢 Completed |
-| Column-wise investigation | 🟢 Completed |
-| Initial spatial-neighbour investigation | 🟢 Completed |
-| Broader spatial quality validation | 🟡 In Progress |
-| Full spectral preprocessing | ⚪ Planned |
-| Wavelength identification | ⚪ Planned |
-| Disease classification | ⚪ Planned |
-| Explainable AI | ⚪ Planned |
-| Model evaluation | ⚪ Planned |
-
-**Legend:** 🟢 Completed · 🟡 In Progress · ⚪ Planned
-
----
-
-## 💻 Getting Started
-
-### 1. Clone the repository
+### Step 1: Clone the repository
 
 ```bash
 git clone https://github.com/sanjanamdinfo/TerraSpectra-AI.git
 ```
 
-### 2. Open project directory
+### Step 2: Open the project
 
 ```bash
 cd TerraSpectra-AI
 ```
 
-### 3. Create a virtual environment
+### Step 3: Install required libraries
 
 ```bash
-python -m venv venv
+python -m pip install numpy pandas matplotlib spectral
 ```
 
-### 4. Activate the environment
-
-**Windows PowerShell:**
-
-```powershell
-.\venv\Scripts\Activate.ps1
-```
-
-### 5. Install dependencies
-
-```bash
-pip install numpy pandas matplotlib spectral
-```
-
-### 6. Execute metadata preparation
+### Step 4: Run the metadata inspection and preparation script
 
 ```bash
 python main.py
 ```
 
-### 7. Inspect raw dataset information
+### Step 5: Inspect the SWIR sample
 
-```bash
-python inspect_raw.py
-```
-
-### 8. Run SWIR image inspection
+After placing the required local SWIR sample files in the expected folder, run:
 
 ```bash
 python inspect_swir.py
 ```
 
-**Note:** The SWIR inspection scripts require the corresponding local `.hdr`, `.hyspex`, and leaf-coordinate files. These raw sample files may not be included in the repository.
+### Step 6: Run SWIR quality validation
+
+```bash
+python analyze_all_swir_bands.py
+```
+
+Additional validation scripts:
+
+```bash
+python check_swir_indexing.py
+python validate_swir_coordinates.py
+python analyze_zero_neighbours.py
+python analyze_leaf_band_quality.py
+```
 
 ---
 
-## ⚠ Research Limitations
+## 🗺️ Future Roadmap
 
-- Current image-level findings are based on one inspected SWIR sample.
-- The maximum stored values require technical validation.
-- The cause of zero-valued measurements remains unknown.
-- Coordinate orientation and mapping require continued validation.
-- Full-dataset spectral preprocessing is not yet completed.
-- Disease classification and model performance have not yet been established.
-- Early detection claims require suitable time-linked experimental validation.
+<details>
+<summary>🔬 Phase 1 – Spectral Data Preparation</summary>
+
+- [x] Dataset selection
+- [x] Initial data organisation
+- [x] SWIR sample inspection
+- [x] Leaf-coordinate validation
+- [x] Initial SWIR zero-value validation
+- [ ] Complete SWIR preprocessing
+- [ ] VNIR spectral image inspection
+- [ ] Validate preprocessing across samples
+
+</details>
+
+<details>
+<summary>📊 Phase 2 – Spectral Analysis</summary>
+
+- [ ] Analyse spectral signatures
+- [ ] Compare infected and non-infected samples
+- [ ] Identify informative wavelengths
+- [ ] Perform wavelength selection
+
+</details>
+
+<details>
+<summary>🤖 Phase 3 – Machine Learning</summary>
+
+- [ ] Prepare model-ready features
+- [ ] Train classification models
+- [ ] Compare model performance
+- [ ] Evaluate classification results
+
+</details>
+
+<details>
+<summary>🧠 Phase 4 – Explainable AI</summary>
+
+- [ ] Integrate SHAP or suitable explainability methods
+- [ ] Interpret important spectral features
+- [ ] Explain individual predictions
+- [ ] Compare explanations across disease classes
+
+</details>
 
 ---
 
-## 🔮 Future Enhancements
+## 🌟 Expected Outcome
 
-- Complete spatial quality validation.
-- Validate coordinate mapping.
-- Expand SWIR and VNIR processing.
-- Identify disease-related spectral patterns.
-- Select informative wavelengths.
-- Train machine learning models.
-- Apply SHAP or other appropriate explainability methods.
-- Compare full-spectrum and selected-wavelength models.
-- Build an interactive results dashboard.
+The expected outcome is an explainable spectral intelligence system that:
+
+- Analyses hyperspectral wheat-leaf measurements.
+- Distinguishes infected and non-infected samples.
+- Identifies informative wavelengths.
+- Provides interpretable machine learning predictions.
+- Supports understanding of spectral patterns associated with wheat disease.
 
 ---
-## Phase 9: VNIR & SWIR Data Acquisition Completeness Analysis
 
-**Status: ✅ Completed**
+## 👩‍💻 Project Information
 
-Performed an acquisition completeness analysis using the VNIR and SWIR annotation tables to understand leaf acquisition patterns across observation dates, pot sides, treatment groups, and genotypes.
+**Project:** TerraSpectra-AI  
+**Focus:** Explainable AI and Hyperspectral Image Analysis  
+**Application:** Wheat Disease Detection  
+**Project Type:** Individual Academic Project  
 
-### Completed activities
+---
 
-- Loaded and inspected the SWIR and VNIR acquisition annotation files.
-- Identified 48 pot records across 18 observation dates.
-- Counted recorded leaves for both pot sides (G and D).
-- Identified empty cells representing no HSI acquisition due to sampling.
-- Identified `NA` entries representing technical malfunctions.
-- Compared acquisition patterns between VNIR and SWIR.
-- Examined acquisition records by treatment and genotype.
-- Validated group-level totals against overall sensor summaries.
+<p align="center">
+  <strong>🌱 Exploring Spectral Intelligence for Smarter Agriculture 🌱</strong>
+</p>
 
-### Acquisition completeness results
-
-| Attribute | VNIR | SWIR |
-|---|---:|---:|
-| Pot records | 48 | 48 |
-| Observation dates | 18 | 18 |
-| Expected date-side entries | 1,728 | 1,728 |
-| Numeric entries | 1,175 | 1,175 |
-| Empty cells | 552 | 552 |
-| Technical NA entries | 1 | 1 |
-| Unexpected values | 0 | 0 |
-
-### Acquisition groups
-
-The analysis covered four treatment-genotype combinations:
-
-- Infected — EPO_67
-- Infected — EPO_68
-- Non-infected — EPO_67
-- Non-infected — EPO_68
-
-Each group contains 12 pot records.
-
-### Key observations
-
-- Acquisition coverage varies across observation dates and pot sides.
-- The number of recorded leaves decreases at several later observation dates.
-- The D side has no recorded leaf acquisitions at DPI 18, 19, and 20.
-- The G side continues to have recorded acquisitions at these dates.
-- VNIR and SWIR show very similar acquisition patterns, with small differences in recorded leaf counts at DPI 4.
-- Each sensor annotation table contains one technical `NA` entry at DPI 10 on the G side.
-
-### Generated files
-
-- `analyze_acquisition_completeness.py`
-- `data/processed/acquisition_completeness_summary.csv`
-- `data/processed/acquisition_completeness_by_group.csv`
-
-### Validation
-
-The group-level results were compared with the overall sensor summaries.
-
-**Validation results:**
-
-| Validation check | Result |
-|---|---|
-| Group totals match overall totals | True |
-| Treatment-genotype combinations | 4 |
-| Sensors analysed | 2 |
-| Unexpected values | 0 |
-
-**Research note:** Empty cells and technical `NA` values were treated as separate categories according to the dataset documentation. Empty cells indicate no HSI acquisition due to sampling, whereas `NA` indicates a technical malfunction. No missing entries were automatically filled or removed.
-
-**Outcome:** VNIR and SWIR acquisition completeness analysis and group-level validation were successfully completed. This analysis describes the acquisition annotation records, not the quality of individual hyperspectral image pixels.
-
-<div align="center">
-
-## 🌱 Our Vision
-
-**From hyperspectral measurements to interpretable agricultural intelligence.**
-
-Building TerraSpectra-AI step by step with reliable data, transparent analysis, and explainable results.
-
-<br>
-
-⭐ If you find this project interesting, consider starring the repository!
-
-[![GitHub Repository](https://img.shields.io/badge/GitHub-TerraSpectra--AI-181717?style=for-the-badge&logo=github)](https://github.com/sanjanamdinfo/TerraSpectra-AI)
-
-</div>
+<p align="center">
+  <sub>Built with Python, Machine Learning and Explainable AI.</sub>
+</p>
