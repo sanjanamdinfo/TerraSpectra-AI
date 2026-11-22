@@ -73,3 +73,67 @@ The validation covers prepared metadata tables, not the actual hyperspectral ima
 1. Investigate the missing acquisition values.
 2. Review the original acquisition records.
 3. Continue the planned hyperspectral data investigation.
+---
+
+# Daily Progress - November 22, 2026
+
+## Objective
+
+Investigate missing acquisition values in the prepared VNIR and SWIR datasets using the original dataset records and documentation.
+
+## Initial Status
+
+- Repository checked.
+- Main branch synchronized with GitHub.
+- Working tree clean.
+
+## Work Status
+
+- Missing acquisition investigation started.
+
+## Next Steps
+
+1. Inspect original dataset documentation.
+2. Investigate missing acquisition records.
+3. Document findings based on available evidence.
+# Daily Progress - November 22, 2026
+
+## Objective
+
+Investigate missing acquisition values in the prepared VNIR and SWIR datasets using the original acquisition records and dataset documentation.
+
+## Work Completed
+
+### 1. Original Dataset Inspection
+- Inspected the original `VNIR_data.csv` and `SWIR_data.csv` files.
+- Used `cp1252` encoding to read the original CSV files correctly.
+- Confirmed that both datasets contain 48 pot records and 18 acquisition dates.
+
+### 2. Missing Acquisition Investigation
+- Checked DPI 18, DPI 19 and DPI 20 on side D in both original datasets.
+- Confirmed that these columns are empty for all 48 pots.
+- Verified that these empty cells are also present in the original records.
+
+### 3. Technical Malfunction Investigation
+Identified the following explicit `NA` entries:
+
+| Dataset | Pot | Genotype | Treatment | DPI | Side | Status |
+|---|---|---|---|---|---|---|
+| VNIR | 47 | EPO_67 | Non-infected | 10 | G | Technical malfunction |
+| SWIR | 23 | EPO_67 | Non-infected | 10 | G | Technical malfunction |
+
+### 4. Documentation Verification
+The original dataset documentation specifies:
+- Empty cells indicate no HSI acquisition due to sampling.
+- `NA` indicates missing data due to a technical malfunction.
+
+## Conclusion
+
+The investigation confirmed that the three entirely empty acquisition columns in both prepared datasets originate from the original acquisition records. The identified technical-malfunction entries were also verified in the original files.
+
+No raw datasets or preprocessing code were modified during this investigation.
+
+## Next Steps
+
+1. Review the implications of the confirmed missing acquisition values.
+2. Continue the hyperspectral data investigation based on the available project data.
