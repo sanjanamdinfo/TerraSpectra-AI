@@ -17,6 +17,7 @@
 - [System Workflow](#-system-workflow)
 - [Project Progress](#-project-progress)
 - [SWIR Sample Quality Validation](#-swir-sample-quality-validation)
+- [Prepared Dataset Validation](#-prepared-dataset-validation)
 - [Visual Results](#-visual-results)
 - [Technologies Used](#-technologies-used)
 - [Project Structure](#-project-structure)
@@ -153,6 +154,7 @@ Project development is ongoing.
 | Leaf-coordinate inspection | ✅ Completed |
 | Leaf spectral extraction | ✅ Completed for one sample |
 | SWIR zero-value quality validation | ✅ Completed for one sample |
+| VNIR/SWIR prepared metadata validation | ✅ Completed |
 | Complete spectral quality investigation | 🔄 In progress |
 | Complete spectral preprocessing | ⏳ Pending |
 | VNIR/SWIR spectral analysis | ⏳ Pending |
@@ -230,6 +232,63 @@ The investigation included:
 **Note:** These findings apply to the investigated SWIR sample only. Further validation is required before drawing conclusions about other samples.
 
 ---
+---
+
+## 📊 Prepared Dataset Validation
+
+On **21 November 2026**, the prepared VNIR and SWIR metadata datasets were validated using the existing `validate_prepared_datasets.py` script.
+
+### 1. Dataset Validation Results
+
+| Validation Metric | VNIR | SWIR |
+|---|---:|---:|
+| Samples | 48 | 48 |
+| Columns | 39 | 39 |
+| Missing Values | 553 | 553 |
+| Duplicate Rows | 0 | 0 |
+| Duplicate Pot IDs | 0 | 0 |
+| Infinite Values | 0 | 0 |
+| Completely Empty Columns | 3 | 3 |
+
+### 2. Sample Distribution
+
+Both datasets have the following distribution:
+
+| Genotype | Infected | Non-infected |
+|---|---:|---:|
+| EPO_67 | 12 | 12 |
+| EPO_68 | 12 | 12 |
+| **Total** | **24** | **24** |
+
+### 3. Missing Acquisition Information
+
+Three acquisition columns contain no recorded values:
+
+- `DPI_18_D`
+- `DPI_19_D`
+- `DPI_20_D`
+
+Both datasets contain 553 missing acquisition values.
+
+These missing values require interpretation using the original acquisition records. They have not been automatically replaced or removed.
+
+### 4. Validation Activities
+
+- Checked dataset dimensions.
+- Inspected missing values.
+- Checked duplicate records and Pot IDs.
+- Verified treatment distribution.
+- Verified genotype distribution.
+- Checked infinite values.
+- Identified completely empty columns.
+
+### 5. Validation Report
+
+The validation script generates:
+
+`data/processed/prepared_dataset_validation.csv`
+
+**Note:** This validation covers prepared metadata tables. It does not represent completed VNIR/SWIR spectral image preprocessing or spectral analysis.
 
 ## 🖼️ Visual Results
 
