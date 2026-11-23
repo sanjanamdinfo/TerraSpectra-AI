@@ -18,6 +18,7 @@
 - [Project Progress](#-project-progress)
 - [SWIR Sample Quality Validation](#-swir-sample-quality-validation)
 - [Prepared Dataset Validation](#-prepared-dataset-validation)
+- [VNIR and SWIR Cross-Sensor Validation](#-vnir-and-swir-cross-sensor-validation)
 - [Visual Results](#-visual-results)
 - [Technologies Used](#-technologies-used)
 - [Project Structure](#-project-structure)
@@ -155,6 +156,8 @@ Project development is ongoing.
 | Leaf spectral extraction | ✅ Completed for one sample |
 | SWIR zero-value quality validation | ✅ Completed for one sample |
 | VNIR/SWIR prepared metadata validation | ✅ Completed |
+| VNIR/SWIR cross-sensor acquisition investigation | ✅ Completed |
+| Cleaned-to-prepared exact content validation | ✅ Completed |
 | Complete spectral quality investigation | 🔄 In progress |
 | Complete spectral preprocessing | ⏳ Pending |
 | VNIR/SWIR spectral analysis | ⏳ Pending |
@@ -290,6 +293,80 @@ The validation script generates:
 
 **Note:** This validation covers prepared metadata tables. It does not represent completed VNIR/SWIR spectral image preprocessing or spectral analysis.
 
+---
+
+## 🔍 VNIR and SWIR Cross-Sensor Validation
+
+**Investigation Date: 23 November 2026**
+
+A detailed investigation was performed to compare the prepared VNIR and SWIR datasets and verify that the preprocessing pipeline correctly preserves the cleaned source data.
+
+### 1. Prepared Dataset Comparison
+
+| Validation Metric | VNIR | SWIR |
+|---|---:|---:|
+| Pot Records | 48 | 48 |
+| Columns | 39 | 39 |
+| Duplicate Pot IDs | 0 | 0 |
+| Missing Values | 553 | 553 |
+
+Both datasets contain the same Pot IDs, genotype information and treatment labels.
+
+### 2. Cross-Sensor Acquisition Differences
+
+A total of 12 acquisition-count cells differed between VNIR and SWIR.
+
+The differences were identified in the following pots:
+
+- Pot 13
+- Pot 20
+- Pot 23
+- Pot 25
+- Pot 47
+
+The investigation identified:
+- 10 numerical acquisition-count differences.
+- 2 different missing-value positions.
+
+These differences were checked against the original raw VNIR and SWIR datasets. All 12 differences were already present in the original source records.
+
+### 3. Technical Malfunction Records
+
+The following missing measurements were verified:
+
+| Dataset | Pot | DPI | Side |
+|---|---:|---:|---|
+| VNIR | 47 | 10 | G |
+| SWIR | 23 | 10 | G |
+
+These records correspond to the previously identified technical-malfunction entries.
+
+### 4. Cleaned-to-Prepared Dataset Validation
+
+The preparation filtering was reproduced and the expected datasets were compared with the saved prepared datasets.
+
+| Validation Check | VNIR | SWIR |
+|---|---|---|
+| Dataset Shape | ✅ Pass | ✅ Pass |
+| Column Names | ✅ Pass | ✅ Pass |
+| Pot IDs | ✅ Pass | ✅ Pass |
+| Genotype | ✅ Pass | ✅ Pass |
+| Treatment | ✅ Pass | ✅ Pass |
+| Acquisition Counts | ✅ Pass | ✅ Pass |
+| Missing-Value Patterns | ✅ Pass | ✅ Pass |
+| Exact Content Match | ✅ Pass | ✅ Pass |
+
+Both datasets matched their corresponding cleaned datasets exactly after normalizing Pot IDs.
+
+### 5. Conclusion
+
+The investigation confirmed that the prepared VNIR and SWIR datasets correctly preserve their corresponding cleaned datasets.
+
+The differences between the two sensors originated in the original raw acquisition records and were not introduced by the preparation pipeline.
+
+No changes to the original datasets or preprocessing code were required during this investigation.
+
+**Note:** This validation concerns acquisition-count metadata. It does not represent completed spectral image preprocessing or spectral analysis.
 ## 🖼️ Visual Results
 
 ### 1. SWIR Leaf Coordinate Inspection
