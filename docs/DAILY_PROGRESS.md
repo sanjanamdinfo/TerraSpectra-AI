@@ -137,3 +137,35 @@ No raw datasets or preprocessing code were modified during this investigation.
 
 1. Review the implications of the confirmed missing acquisition values.
 2. Continue the hyperspectral data investigation based on the available project data.
+# Daily Progress - November 23, 2026
+
+## Objective
+
+Validate the prepared VNIR and SWIR datasets and investigate differences between the two sensor datasets.
+
+## Work Completed
+
+### 1. Prepared Dataset Validation
+- Compared the prepared VNIR and SWIR datasets.
+- Confirmed that both datasets contain 48 pot records and 39 columns.
+- Verified that there are no duplicate Pot IDs.
+- Confirmed that Pot IDs, genotype information and treatment labels match between the datasets.
+
+### 2. VNIR and SWIR Differences
+- Identified 12 different acquisition-count cells between the prepared datasets.
+- Investigated the differences in Pots 13, 20, 23, 25 and 47.
+- Compared the identified records with the original raw VNIR and SWIR datasets.
+- Confirmed that the differences were already present in the original source records.
+
+### 3. Cleaned-to-Prepared Dataset Validation
+- Reproduced the filtering performed by the preparation pipeline.
+- Compared the expected results against the saved prepared datasets.
+- Validated dataset dimensions, column names, Pot IDs, genotype, treatment, acquisition counts and missing-value patterns.
+- Confirmed exact content matches for both VNIR and SWIR after normalizing Pot IDs.
+
+## Conclusion
+
+Both prepared datasets correctly preserve the corresponding cleaned datasets after the preparation filtering.
+
+The identified VNIR and SWIR acquisition-count differences originate from the original raw records. No preprocessing code or dataset modifications were required during this investigation.
+
