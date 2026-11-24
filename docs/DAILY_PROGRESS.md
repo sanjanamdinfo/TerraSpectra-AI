@@ -169,3 +169,50 @@ Both prepared datasets correctly preserve the corresponding cleaned datasets aft
 
 The identified VNIR and SWIR acquisition-count differences originate from the original raw records. No preprocessing code or dataset modifications were required during this investigation.
 
+# Daily Progress - November 24, 2026
+
+## Objective
+
+Investigate and correct the VNIR and SWIR metadata preprocessing workflow and validate the cleaned and prepared datasets.
+
+## Work Completed
+
+### 1. Original Dataset Investigation
+- Investigated the seven additional blank and explanatory rows in both cleaned metadata datasets.
+- Examined the original Git commit and identified that the original raw-to-cleaned preprocessing script was missing.
+- Verified that both raw datasets contain 48 actual plant records.
+
+### 2. Metadata Preprocessing Implementation
+- Created `src/metadata_preprocessing.py`.
+- Implemented reproducible preprocessing for both VNIR and SWIR metadata.
+- Removed blank and explanatory rows using Pot, Genotype and Treatment identification fields.
+- Preserved legitimate missing acquisition values.
+- Generated corrected cleaned datasets containing 48 plant records and 39 columns each.
+
+### 3. Prepared Dataset Regeneration
+- Executed `main.py` to regenerate the prepared VNIR and SWIR datasets.
+- Confirmed 24 infected and 24 non-infected samples in each dataset.
+- Confirmed 24 samples each for genotypes EPO_67 and EPO_68.
+
+### 4. Final Dataset Validation
+Compared both cleaned datasets against their corresponding original raw datasets.
+
+| Validation | VNIR | SWIR |
+|---|---|---|
+| Shape matches | PASS | PASS |
+| Column names match | PASS | PASS |
+| Exact content matches | PASS | PASS |
+| Missing-value patterns match | PASS | PASS |
+
+## Conclusion
+
+Successfully implemented a reproducible metadata preprocessing script for VNIR and SWIR datasets.
+
+Both cleaned datasets now contain exactly 48 valid plant records. All original acquisition values and missing-value patterns are preserved.
+
+Final validation confirmed exact content matches between the cleaned datasets and their corresponding raw source records.
+
+## Next Steps
+
+1. Continue hyperspectral spectral data preparation.
+2. Proceed with the next stages of the existing project workflow.
