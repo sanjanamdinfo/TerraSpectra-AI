@@ -517,6 +517,10 @@ python analyze_leaf_band_quality.py
 - [x] SWIR sample inspection
 - [x] Leaf-coordinate validation
 - [x] Initial SWIR zero-value validation
+- [x] VNIR and SWIR prepared dataset comparison
+- [x] Cross-sensor acquisition-count difference investigation
+- [x] Verification of acquisition-count differences against raw datasets
+- [x] Validation of matching acquisition dates and G/D side columns
 - [ ] Complete SWIR preprocessing
 - [ ] VNIR spectral image inspection
 - [ ] Validate preprocessing across samples
