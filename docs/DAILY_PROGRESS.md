@@ -216,3 +216,44 @@ Final validation confirmed exact content matches between the cleaned datasets an
 
 1. Continue hyperspectral spectral data preparation.
 2. Proceed with the next stages of the existing project workflow.
+
+# Daily Progress - November 25, 2026
+
+## Objective
+
+Investigate VNIR and SWIR acquisition-count differences and verify consistency between the two sensor datasets.
+
+## Work Completed
+
+### 1. Cross-Sensor Dataset Comparison
+- Compared the prepared VNIR and SWIR datasets.
+- Confirmed that both datasets contain 48 pot records and 39 columns.
+- Verified that Pot IDs, genotype information and treatment labels match.
+- Identified 12 differing acquisition-count cells across Pots 13, 20, 23, 25 and 47.
+
+### 2. Raw Dataset Verification
+- Traced all 12 differences back to the original raw VNIR and SWIR datasets.
+- Confirmed that the differences were already present in the source records.
+- Identified 10 numeric count differences and 2 differences in missing-value status.
+- Confirmed that the two missing entries correspond to previously identified technical-malfunction records.
+
+### 3. Acquisition Structure Validation
+- Compared the original VNIR and SWIR acquisition date headers.
+- Confirmed that both datasets contain the same 18 acquisition dates.
+- Verified that both G and D side columns are present for every acquisition date.
+- Confirmed that each sensor has 36 acquisition-count measurement columns.
+
+### 4. Leaf Identification Documentation Investigation
+- Examined `Data_description.csv` to understand the documented leaf identification structure.
+- Confirmed that G represents the left side and D represents the right side of a pot.
+- Identified the documented range of 1 to 3 wheat leaves per pot side.
+- Compared documented leaf counts with the differing acquisition counts.
+- Determined that the documentation does not provide sensor-specific, date-specific acquisition counts, so it cannot explain the numeric differences conclusively.
+
+## Conclusion
+
+The VNIR and SWIR datasets have matching acquisition structures, but 12 acquisition-count cells differ between the sensors.
+
+All identified differences were verified against the original raw datasets. The numeric differences are source-data differences, and their underlying cause remains undetermined.
+
+No raw datasets, processed datasets or preprocessing scripts were modified during this investigation.
