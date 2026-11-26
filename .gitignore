@@ -5,3 +5,4 @@ venv/
 .env
 .vscode/
 data/raw/SWIR_sample/
+data/processed/SWIR_leaf_spectral_data.csv

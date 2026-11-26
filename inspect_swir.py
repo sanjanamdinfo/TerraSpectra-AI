@@ -203,6 +203,31 @@ columns = leaf_df["Y"].to_numpy(dtype=int)
 # Extract all 256 spectral bands for leaf pixels
 
 leaf_spectra = data[rows, columns, :]
+# ==========================================
+# SAVE LEAF SPECTRAL DATASET
+# ==========================================
+
+wavelength_columns = [
+    f"{wavelength:.2f}_nm" for wavelength in wavelengths
+]
+
+spectral_df = pd.DataFrame(
+    leaf_spectra,
+    columns=wavelength_columns
+)
+
+# Add pixel identification and original coordinates
+spectral_df.insert(0, "Y", leaf_df["Y"].to_numpy())
+spectral_df.insert(0, "X", leaf_df["X"].to_numpy())
+spectral_df.insert(0, "Pixel_ID", np.arange(1, len(leaf_df) + 1))
+
+# Save extracted spectral dataset
+output_path = "data/processed/SWIR_leaf_spectral_data.csv"
+
+spectral_df.to_csv(output_path, index=False)
+
+print("Spectral dataset saved:", output_path)
+print("Spectral dataset shape:", spectral_df.shape)
 
 print("Extracted spectral data shape:", leaf_spectra.shape)
 
