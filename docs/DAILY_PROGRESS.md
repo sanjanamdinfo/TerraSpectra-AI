@@ -257,3 +257,39 @@ The VNIR and SWIR datasets have matching acquisition structures, but 12 acquisit
 All identified differences were verified against the original raw datasets. The numeric differences are source-data differences, and their underlying cause remains undetermined.
 
 No raw datasets, processed datasets or preprocessing scripts were modified during this investigation.
+# Daily Progress - November 26, 2026
+
+## Objective
+
+Validate SWIR leaf-pixel coordinates and extract spectral measurements for the identified leaf region.
+
+## Work Completed
+
+### 1. SWIR Coordinate Validation
+- Investigated the leaf-pixel coordinate mapping using the SWIR hyperspectral image.
+- Compared both possible coordinate orientations through visual inspection.
+- Confirmed that X represents image rows and Y represents image columns.
+- Validated the coordinate mapping against the visible leaf region.
+
+### 2. SWIR Spectral Data Extraction
+- Extracted spectral measurements for all 3,846 identified leaf pixels.
+- Extracted all 256 wavelength-band measurements for each pixel.
+- Generated wavelength-based column names in nanometres.
+- Added Pixel_ID, X and Y columns to preserve pixel identification and spatial coordinates.
+
+### 3. Exported Dataset Validation
+- Generated `data/processed/SWIR_leaf_spectral_data.csv`.
+- Confirmed that the exported dataset contains 3,846 rows and 259 columns.
+- Verified that the dataset contains 256 spectral measurement columns and 3 pixel-identification columns.
+- Confirmed that no NaN or infinite measurements were present.
+
+### 4. GitHub Version Control
+- Updated `.gitignore` to exclude the generated spectral CSV.
+- Committed the extraction functionality as `a3df2e3`.
+- Successfully pushed the commit to the GitHub main branch.
+
+## Conclusion
+
+Successfully extracted and validated the SWIR leaf-pixel spectral dataset containing 3,846 pixels and 256 wavelength measurements per pixel.
+
+The extraction functionality is committed and available in the GitHub repository. The generated CSV remains locally available and excluded from version control.
