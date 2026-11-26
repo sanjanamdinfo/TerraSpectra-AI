@@ -1,4 +1,5 @@
 # 🌱 TerraSpectra-AI
+
 ### Explainable Spectral Intelligence for Wheat Disease Detection
 
 <p align="center">
@@ -19,6 +20,7 @@
 - [SWIR Sample Quality Validation](#-swir-sample-quality-validation)
 - [Prepared Dataset Validation](#-prepared-dataset-validation)
 - [VNIR and SWIR Cross-Sensor Validation](#-vnir-and-swir-cross-sensor-validation)
+- [SWIR Leaf Spectral Extraction](#-swir-leaf-spectral-extraction)
 - [Visual Results](#-visual-results)
 - [Technologies Used](#-technologies-used)
 - [Project Structure](#-project-structure)
@@ -152,8 +154,9 @@ Project development is ongoing.
 | Initial metadata inspection | ✅ Completed |
 | Basic metadata EDA | ✅ Completed |
 | SWIR image inspection | ✅ Completed for one sample |
-| Leaf-coordinate inspection | ✅ Completed |
-| Leaf spectral extraction | ✅ Completed for one sample |
+| SWIR leaf-coordinate orientation validation | ✅ Completed for one sample |
+| SWIR leaf spectral extraction | ✅ Completed for one sample |
+| SWIR spectral CSV export and validation | ✅ Completed for one sample |
 | SWIR zero-value quality validation | ✅ Completed for one sample |
 | VNIR/SWIR prepared metadata validation | ✅ Completed |
 | VNIR/SWIR cross-sensor acquisition investigation | ✅ Completed |
@@ -234,7 +237,6 @@ The investigation included:
 
 **Note:** These findings apply to the investigated SWIR sample only. Further validation is required before drawing conclusions about other samples.
 
----
 ---
 
 ## 📊 Prepared Dataset Validation
@@ -325,6 +327,7 @@ The differences were identified in the following pots:
 - Pot 47
 
 The investigation identified:
+
 - 10 numerical acquisition-count differences.
 - 2 different missing-value positions.
 
@@ -367,6 +370,74 @@ The differences between the two sensors originated in the original raw acquisiti
 No changes to the original datasets or preprocessing code were required during this investigation.
 
 **Note:** This validation concerns acquisition-count metadata. It does not represent completed spectral image preprocessing or spectral analysis.
+
+---
+
+## 🔬 SWIR Leaf Spectral Extraction
+
+**Investigation Date: 26 November 2026**
+
+A SWIR leaf-pixel spectral extraction process was implemented and validated using the available hyperspectral sample `01_D`.
+
+### 1. Sample Information
+
+| Parameter | Result |
+|---|---|
+| Sample | `01_D` |
+| Image Dimensions | 420 × 320 × 256 |
+| Wavelength Bands | 256 |
+| Wavelength Range | Approximately 964.18–2494.39 nm |
+| Identified Leaf Pixels | 3,846 |
+
+### 2. Leaf Coordinate Orientation Validation
+
+- Investigated the leaf-pixel coordinates using the SWIR hyperspectral image.
+- Compared both possible coordinate orientations through visual inspection.
+- Confirmed that X represents image rows and Y represents image columns.
+- Validated the coordinate mapping against the visible leaf region.
+
+### 3. Spectral Data Extraction
+
+Extracted all 256 wavelength measurements for each of the 3,846 identified leaf pixels.
+
+The exported dataset includes:
+
+| Column | Description |
+|---|---|
+| `Pixel_ID` | Unique pixel identification |
+| `X` | Original image row coordinate |
+| `Y` | Original image column coordinate |
+| Wavelength columns | Spectral measurements represented in nanometres |
+
+### 4. Exported Dataset Validation
+
+| Validation Metric | Result |
+|---|---:|
+| Leaf Pixels | 3,846 |
+| Spectral Bands | 256 |
+| Total Columns | 259 |
+| Total Spectral Measurements | 984,576 |
+| Missing Values (NaN) | 0 |
+| Infinite Values | 0 |
+
+### 5. Output File
+
+Generated spectral dataset:
+
+`data/processed/SWIR_leaf_spectral_data.csv`
+
+The CSV is excluded from Git because it is a generated output that can be recreated by running `inspect_swir.py`.
+
+### 6. Data Quality Note
+
+The extracted dataset preserves the original spectral measurements, including zero and maximum-valued measurements.
+
+No automatic removal or replacement of these measurements was performed during extraction. Their interpretation remains part of the ongoing spectral quality investigation.
+
+**Note:** These extraction results apply to the investigated SWIR sample `01_D`. Extraction and validation across additional samples are still required.
+
+---
+
 ## 🖼️ Visual Results
 
 ### 1. SWIR Leaf Coordinate Inspection
@@ -431,7 +502,11 @@ TerraSpectra-AI/
 │       ├── VNIR_cleaned.csv
 │       ├── VNIR_prepared.csv
 │       ├── SWIR_leaf_coordinate_check.png
-│       └── SWIR_maximum_value_locations.png
+│       ├── SWIR_maximum_value_locations.png
+│       └── SWIR_leaf_spectral_data.csv  # Generated; Git-ignored
+│
+├── src/
+│   └── metadata_preprocessing.py
 │
 ├── main.py
 ├── inspect_raw.py
@@ -444,15 +519,18 @@ TerraSpectra-AI/
 ├── analyze_zero_neighbours.py
 ├── check_swir_indexing.py
 ├── validate_swir_coordinates.py
-│
 ├── validate_prepared_datasets.py
 ├── verify_coordinates.py
 ├── verify_leaf_coordinates.py
+├── docs/
+│   └── DAILY_PROGRESS.md
 ├── .gitignore
 └── README.md
 ```
 
 **Dataset note:** The local `data/raw/SWIR_sample/` folder is excluded from GitHub because it contains large raw hyperspectral files. The sample files must be obtained separately to run the corresponding SWIR validation scripts.
+
+The generated `SWIR_leaf_spectral_data.csv` is also excluded from GitHub and can be recreated by running `inspect_swir.py`.
 
 ---
 
@@ -490,6 +568,8 @@ After placing the required local SWIR sample files in the expected folder, run:
 python inspect_swir.py
 ```
 
+This script performs SWIR image inspection, leaf-coordinate validation and spectral extraction for the available sample.
+
 ### Step 6: Run SWIR quality validation
 
 ```bash
@@ -521,6 +601,9 @@ python analyze_leaf_band_quality.py
 - [x] Cross-sensor acquisition-count difference investigation
 - [x] Verification of acquisition-count differences against raw datasets
 - [x] Validation of matching acquisition dates and G/D side columns
+- [x] Visual validation of SWIR leaf-coordinate orientation
+- [x] SWIR leaf-pixel spectral extraction for one sample
+- [x] Export and validation of the SWIR spectral CSV
 - [ ] Complete SWIR preprocessing
 - [ ] VNIR spectral image inspection
 - [ ] Validate preprocessing across samples
@@ -576,7 +659,7 @@ The expected outcome is an explainable spectral intelligence system that:
 **Project:** TerraSpectra-AI  
 **Focus:** Explainable AI and Hyperspectral Image Analysis  
 **Application:** Wheat Disease Detection  
-**Project Type:** Individual Academic Project  
+**Project Type:** Individual Academic Project
 
 ---
 
