@@ -6,3 +6,15 @@ venv/
 .vscode/
 data/raw/SWIR_sample/
 data/processed/SWIR_leaf_spectral_data.csv
+
+# Generated SWIR quality-control and PCA outputs
+data/processed/SWIR_leaf_spectral_data_qc.csv
+data/processed/SWIR_snv_data.npy
+data/processed/SWIR_spectral_quality_comparison.png
+data/processed/PC1_loading_profile.png
+data/processed/PC1_wavelength_importance.csv
+data/processed/PCA_cumulative_variance.png
+data/processed/PCA_scree_plot.png
+data/processed/SNV_PC1_wavelength_importance.csv
+data/processed/SNV_PCA_cumulative_variance.png
+data/processed/SNV_PCA_scree_plot.png

@@ -293,3 +293,82 @@ Validate SWIR leaf-pixel coordinates and extract spectral measurements for the i
 Successfully extracted and validated the SWIR leaf-pixel spectral dataset containing 3,846 pixels and 256 wavelength measurements per pixel.
 
 The extraction functionality is committed and available in the GitHub repository. The generated CSV remains locally available and excluded from version control.
+
+# Daily Progress - November 27, 2026
+
+## Objective
+
+Investigate SWIR spectral data quality, perform quality-controlled preprocessing, and compare Standard PCA and SNV-based PCA for exploratory wavelength importance analysis.
+
+## Work Completed
+
+### 1. Spectral Data Quality Investigation
+- Inspected all 3,846 extracted leaf-pixel spectra across 256 wavelength bands.
+- Identified 6 zero measurements and 92 suspicious maximum-intensity measurements with a value of 65535.
+- Verified representative suspicious measurements against the original ENVI hyperspectral image.
+- Confirmed that the original header specifies 16383 as the ignore value.
+- Investigated the spatial distribution of suspicious measurements and identified 95 unique affected pixels.
+
+### 2. Spectral Quality Control
+- Preserved the original extracted spectral dataset.
+- Created a separate quality-controlled dataset using wavelength-wise median replacement for the 98 suspicious measurements.
+- Verified that the corrected dataset retains the original dimensions and pixel coordinates.
+- Confirmed that no zero or 65535 measurements remain in the corrected dataset.
+- Confirmed that no missing or infinite values were introduced.
+
+### 3. Standard PCA Analysis
+- Installed and used scikit-learn for principal component analysis.
+- Applied StandardScaler to the wavelength measurements before PCA.
+- Obtained 95.275% explained variance from the first principal component.
+- Generated scree and cumulative explained-variance plots.
+- Extracted PC1 wavelength loadings and generated a wavelength importance ranking.
+
+### 4. SNV Preprocessing and PCA
+- Applied Standard Normal Variate (SNV) transformation independently to each pixel spectrum.
+- Performed PCA on the SNV-transformed data.
+- Obtained 69.386% explained variance from the first principal component.
+- Generated SNV PCA scree and cumulative explained-variance plots.
+- Extracted SNV-based PC1 wavelength loadings and generated a second wavelength importance ranking.
+
+### 5. Wavelength Importance Comparison
+- Compared the top 20 wavelength rankings from Standard PCA and SNV PCA.
+- Identified no common wavelengths between the two top-20 lists.
+- Calculated a wavelength-wise correlation of -0.391 between the absolute PC1 loading magnitudes.
+- Observed that wavelength importance rankings are sensitive to the preprocessing approach.
+
+### 6. Extreme SNV Value Investigation
+- Identified a maximum SNV value of 15.4783 at Pixel 3788, coordinates (150, 296), and wavelength 1588.27 nm.
+- Investigated the corresponding original hyperspectral image measurement.
+- Confirmed that the original measurement was 65535 and that the quality-controlled dataset contained its median replacement value of 3391.
+- Established that the extreme original measurement was not introduced during CSV extraction.
+
+## Key Results
+
+| Metric | Result |
+|---|---:|
+| Leaf pixels | 3,846 |
+| Spectral bands | 256 |
+| Suspicious zero measurements | 6 |
+| Suspicious maximum measurements | 92 |
+| Total corrected measurements | 98 |
+| Standard PCA PC1 variance | 95.275% |
+| SNV PCA PC1 variance | 69.386% |
+| Common top-20 wavelengths | 0 |
+| Wavelength-wise loading correlation | -0.391 |
+
+## Conclusion
+
+Completed an initial SWIR spectral quality investigation and generated a separate quality-controlled spectral dataset.
+
+Performed exploratory PCA using both standardization and SNV preprocessing. The comparison showed substantial differences in the resulting wavelength importance rankings.
+
+The identified suspicious measurements were investigated against the original hyperspectral image. Their exact physical causes remain unconfirmed.
+
+The PCA and wavelength importance results are exploratory findings from one infected leaf sample. Additional independent infected and non-infected samples are required before identifying disease-specific wavelengths or validating classification performance.
+
+## Next Steps
+
+1. Investigate the availability of additional hyperspectral samples.
+2. Review the generated PCA and wavelength importance plots.
+3. Assess the stability of wavelength importance across additional samples.
+4. Continue developing the explainable spectral analysis workflow.
