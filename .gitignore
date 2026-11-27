@@ -18,3 +18,9 @@ data/processed/PCA_scree_plot.png
 data/processed/SNV_PC1_wavelength_importance.csv
 data/processed/SNV_PCA_cumulative_variance.png
 data/processed/SNV_PCA_scree_plot.png
+
+# Generated explainable spectral analysis outputs
+data/processed/Standard_*
+data/processed/SNV_*
+data/processed/wavelength_importance_comparison.*
+data/processed/top20_wavelength_comparison.png

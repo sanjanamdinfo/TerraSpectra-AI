@@ -372,3 +372,26 @@ The PCA and wavelength importance results are exploratory findings from one infe
 2. Review the generated PCA and wavelength importance plots.
 3. Assess the stability of wavelength importance across additional samples.
 4. Continue developing the explainable spectral analysis workflow.
+## Additional Explainability Work — November 27, 2026
+
+### Completed
+
+- Created `src/explainable_analysis.py` to automate Standard PCA and SNV-PCA analysis.
+- Generated explained variance reports and PC1 wavelength importance rankings.
+- Generated PCA pixel-score datasets for both preprocessing methods.
+- Created individual PCA visualizations, including scree plots, cumulative variance plots, and PC1 loading profiles.
+- Created `src/wavelength_comparison.py` to compare wavelength importance across Standard PCA and SNV-PCA.
+- Generated a complete wavelength comparison plot and a top-20 wavelength comparison plot.
+- Verified that both Python scripts compile successfully.
+- Updated `.gitignore` to exclude generated analysis outputs.
+
+### Key Findings
+
+- Standard PCA PC1 explained variance: 95.275%.
+- SNV-PCA PC1 explained variance: 69.386%.
+- Absolute PC1 loading correlation between the two methods: -0.391.
+- No common wavelengths in the respective top-20 rankings.
+
+### Scientific Limitation
+
+These results represent unsupervised spectral variance analysis from one infected leaf sample. PCA loading importance does not establish disease-specific biomarkers. Further validation using independent infected and non-infected leaf samples and supervised model evaluation is required.
