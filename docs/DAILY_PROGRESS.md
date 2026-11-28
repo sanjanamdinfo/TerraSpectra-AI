@@ -429,3 +429,35 @@ The 279 leaf records are nested within 48 pots and should not be treated as 279 
 The confidence level represents the confidence assigned to the infection assessment; it is not a disease severity score.
 
 This analysis describes the available sample metadata and does not establish disease classification performance or disease-specific spectral biomarkers.
+
+## Acquisition Completeness Investigation — November 28, 2026
+
+### Work Completed
+
+- Reviewed `acquisition_completeness_summary.csv` and `acquisition_completeness_by_group.csv`.
+- Compared acquisition records across VNIR and SWIR sensors.
+- Examined acquisition completeness across 48 pots, two wheat genotypes, two treatments, and both pot sides (G/D).
+- Identified empty acquisition cells, technical missing values, and unexpected values.
+- Located the technical missing-value group at DPI 10, side G, for non-infected EPO_67 samples.
+
+### Key Findings
+
+| Metric | VNIR | SWIR |
+|---|---:|---:|
+| Total groups | 144 | 144 |
+| Empty acquisition cells | 552 | 552 |
+| Technical NA values | 1 | 1 |
+| Unexpected values | 0 | 0 |
+
+- Both sensors showed identical overall missing-value counts.
+- The only technical NA occurred at DPI 10, side G, for non-infected EPO_67 samples.
+- This group contained 8 numeric entries, 3 empty cells, and 1 technical NA out of 12 pot records.
+- Side D had no numeric acquisition entries from DPI 18 onward in the summary.
+
+### Data Interpretation
+
+Empty acquisition cells and technical NA values are distinct and should not be treated as interchangeable.
+
+The acquisition tables describe metadata-level sampling completeness. They do not establish the availability of corresponding hyperspectral image files or spectral measurements.
+
+The currently identified SWIR hyperspectral sample represents one infected leaf. Additional independent infected and non-infected hyperspectral samples with reliable metadata links are required before supervised disease classification can be performed reliably.
