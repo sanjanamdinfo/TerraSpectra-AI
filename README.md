@@ -22,6 +22,9 @@
 - [VNIR and SWIR Cross-Sensor Validation](#-vnir-and-swir-cross-sensor-validation)
 - [SWIR Leaf Spectral Extraction](#-swir-leaf-spectral-extraction)
 - [Visual Results](#-visual-results)
+- [SWIR Leaf Spectral Extraction](#-swir-leaf-spectral-extraction)
+- [SWIR Explainable Spectral Analysis](#-swir-explainable-spectral-analysis)
+- [Visual Results](#-visual-results)
 - [Technologies Used](#-technologies-used)
 - [Project Structure](#-project-structure)
 - [Installation and Setup](#-installation-and-setup)
@@ -162,11 +165,13 @@ Project development is ongoing.
 | VNIR/SWIR cross-sensor acquisition investigation | ✅ Completed |
 | Cleaned-to-prepared exact content validation | ✅ Completed |
 | Complete spectral quality investigation | 🔄 In progress |
-| Complete spectral preprocessing | ⏳ Pending |
-| VNIR/SWIR spectral analysis | ⏳ Pending |
-| Important wavelength identification | ⏳ Pending |
+| SWIR spectral quality-contol preprocessing | ✅ Completed for one sample |
+| Complete spectral preprocessing | 🔄 In progress |
+| VNIR/SWIR spectral analysis | 🔄 In progress |
+| Standard PCA and SNV-PCA analysis | ✅ Completed for one SWIR sample |
+| Exploratory PC1 wavelength importance analysis | ✅ Completed for one SWIR sample |
 | Disease classification | ⏳ Pending |
-| Explainable AI implementation | ⏳ Pending |
+| Supervised model explainability (SHAP or similar) | ⏳ Pending |
 | Model evaluation | ⏳ Pending |
 
 ---
@@ -437,7 +442,72 @@ No automatic removal or replacement of these measurements was performed during e
 **Note:** These extraction results apply to the investigated SWIR sample `01_D`. Extraction and validation across additional samples are still required.
 
 ---
+## 🔬 SWIR Explainable Spectral Analysis
 
+**Analysis Date: 27–28 November 2026**
+
+Exploratory Principal Component Analysis (PCA) was performed on the SWIR leaf spectral dataset to understand spectral variation and identify important wavelengths.
+
+### Dataset Details
+
+- Number of pixels: 3,846
+- Number of spectral bands: 256
+- Total spectral measurements: 984,576
+- Input: SWIR leaf spectral data after quality-control preprocessing.
+
+### PCA Comparison
+
+Two approaches were investigated:
+
+1. **Standard PCA:** Applied after wavelength-wise StandardScaler transformation.
+2. **SNV-PCA:** Applied after Standard Normal Variate (SNV) transformation of individual pixel spectra.
+
+| Metric | Standard PCA | SNV-PCA |
+|---|---:|---:|
+| PC1 Explained Variance | 95.275% | 69.386% |
+| PC2 Explained Variance | 4.061% | 4.721% |
+| PC3 Explained Variance | 0.200% | 3.658% |
+
+### Important Wavelength Analysis
+
+- Identified and ranked wavelengths using absolute PC1 loadings.
+- Compared wavelength importance between Standard PCA and SNV-PCA.
+- No common wavelengths were found between the top 20 rankings of the two approaches.
+- The correlation between the absolute PC1 loading profiles was -0.391.
+
+These differences indicate that preprocessing has a substantial influence on the spectral patterns identified by PCA.
+
+### Visualizations
+
+**Overall Wavelength Importance Comparison**
+
+![Wavelength Importance Comparison](docs/images/wavelength_importance_comparison.png)
+
+**Top 20 Wavelength Comparison**
+
+![Top 20 Wavelength Comparison](docs/images/top20_wavelength_comparison.png)
+
+### Implementation
+
+The analysis was implemented using:
+
+- `src/explainable_analysis.py`
+- `src/wavelength_comparison.py`
+
+Run the scripts using:
+
+```bash
+python src/explainable_analysis.py
+python src/wavelength_comparison.py
+
+```
+### Important Scientific Note
+
+This is an exploratory, unsupervised analysis based on one infected wheat leaf sample. PCA identifies patterns of spectral variation but does not establish disease-specific biomarkers.
+
+Further validation using independent infected and non-infected leaf samples is required before identifying reliable disease-related wavelengths or developing a classification model.
+
+---
 ## 🖼️ Visual Results
 
 ### 1. SWIR Leaf Coordinate Inspection
@@ -477,6 +547,7 @@ The maximum-value measurements are still under investigation. They have not been
 | NumPy | Numerical operations |
 | Pandas | Dataset processing |
 | Matplotlib | Data visualisation |
+| Scikit-learn | PCA and spectral analysis |
 | Spectral Python | Hyperspectral image inspection |
 | VS Code | Development environment |
 | Git | Version control |
@@ -506,7 +577,9 @@ TerraSpectra-AI/
 │       └── SWIR_leaf_spectral_data.csv  # Generated; Git-ignored
 │
 ├── src/
-│   └── metadata_preprocessing.py
+│   ├── metadata_preprocessing.py
+│   ├── explainable_analysis.py
+│   └── wavelength_comparison.py
 │
 ├── main.py
 ├── inspect_raw.py
@@ -523,6 +596,9 @@ TerraSpectra-AI/
 ├── verify_coordinates.py
 ├── verify_leaf_coordinates.py
 ├── docs/
+│   ├── images/
+│   │   ├── wavelength_importance_comparison.png
+│   │   └── top20_wavelength_comparison.png
 │   └── DAILY_PROGRESS.md
 ├── .gitignore
 └── README.md
@@ -551,7 +627,7 @@ cd TerraSpectra-AI
 ### Step 3: Install required libraries
 
 ```bash
-python -m pip install numpy pandas matplotlib spectral
+python -m pip install numpy pandas matplotlib spectral scikit-learn
 ```
 
 ### Step 4: Run the metadata inspection and preparation script
