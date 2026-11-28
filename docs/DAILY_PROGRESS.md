@@ -395,3 +395,37 @@ The PCA and wavelength importance results are exploratory findings from one infe
 ### Scientific Limitation
 
 These results represent unsupervised spectral variance analysis from one infected leaf sample. PCA loading importance does not establish disease-specific biomarkers. Further validation using independent infected and non-infected leaf samples and supervised model evaluation is required.
+
+## Sample-Level Exploratory Data Analysis — November 28, 2026
+
+### Completed
+
+- Created `src/sample_eda.py` to automate sample-level exploratory data analysis using `data/raw/Data_description.csv`.
+- Analysed 279 leaf records collected from 48 pots across two wheat genotypes.
+- Examined the distribution of infected and non-infected leaf records.
+- Analysed leaf distribution by genotype and pot side (G/D).
+- Examined infection-confidence levels.
+- Analysed the number of leaf records available per pot.
+- Generated five EDA visualizations and saved them in `docs/images/`.
+- Generated `sample_eda_summary.csv` and `sample_eda_leaves_per_pot.csv` in `data/processed/`.
+- Verified that the cleaned metadata contains no missing values or duplicate pot-side-leaf combinations.
+
+### Key Findings
+
+- Total leaf records: 279.
+- Unique pots: 48.
+- Unique genotypes: 2 (EPO_67 and EPO_68).
+- Infected records: 139.
+- Non-infected records: 140.
+- High-confidence records: 246.
+- Low-confidence records: 33.
+- Duplicate pot-side-leaf records: 0.
+- Missing values: 0.
+
+### Scientific and Methodological Considerations
+
+The 279 leaf records are nested within 48 pots and should not be treated as 279 independent experimental samples. Future machine learning evaluation should use pot-level grouping to reduce data leakage between training and testing sets.
+
+The confidence level represents the confidence assigned to the infection assessment; it is not a disease severity score.
+
+This analysis describes the available sample metadata and does not establish disease classification performance or disease-specific spectral biomarkers.
