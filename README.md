@@ -17,6 +17,8 @@
 - [Dataset Information](#-dataset-information)
 - [System Workflow](#-system-workflow)
 - [Project Progress](#-project-progress)
+- [Sample-Level EDA](#sample-level-eda)
+- [Acquisition Completeness Investigation](#acquisition-completeness-investigation)
 - [SWIR Sample Quality Validation](#-swir-sample-quality-validation)
 - [Prepared Dataset Validation](#-prepared-dataset-validation)
 - [VNIR and SWIR Cross-Sensor Validation](#-vnir-and-swir-cross-sensor-validation)
@@ -156,6 +158,9 @@ Project development is ongoing.
 | Raw and processed data organisation | ✅ Completed |
 | Initial metadata inspection | ✅ Completed |
 | Basic metadata EDA | ✅ Completed |
+| Sample-level EDA (279 leaf records) | Completed |
+| Acquisition completeness investigation | Completed |
+| VNIR/SWIR acquisition missing-value comparison | Completed |
 | SWIR image inspection | ✅ Completed for one sample |
 | SWIR leaf-coordinate orientation validation | ✅ Completed for one sample |
 | SWIR leaf spectral extraction | ✅ Completed for one sample |
@@ -539,6 +544,97 @@ The maximum-value measurements are still under investigation. They have not been
 
 ---
 
+
+## Sample-Level EDA
+
+**Analysis Date: 28 November 2026**
+
+Exploratory Data Analysis was performed on the wheat-leaf sample description dataset to understand the distribution of samples, treatments, genotypes, pot sides and assessment confidence.
+
+### Dataset Summary
+
+| Metric | Result |
+|---|---:|
+| Total leaf records | 279 |
+| Unique pots | 48 |
+| Genotypes | 2 |
+| Pot sides | 2 |
+| Infected leaf records | 139 |
+| Non-infected leaf records | 140 |
+| High-confidence records | 246 |
+| Low-confidence records | 33 |
+| Missing values | 0 |
+| Duplicate pot-side-leaf records | 0 |
+
+### Visualizations
+
+Five visualizations were generated:
+
+- Treatment distribution
+- Genotype distribution
+- Pot-side distribution
+- Assessment confidence distribution
+- Leaves recorded per pot
+
+The visualizations are stored in `docs/images/`:
+
+- `sample_eda_treatment.png`
+- `sample_eda_genotype.png`
+- `sample_eda_side.png`
+- `sample_eda_confidence.png`
+- `sample_eda_leaves_per_pot.png`
+
+### Generated Outputs
+
+- `data/processed/sample_eda_summary.csv`
+- `data/processed/sample_eda_leaves_per_pot.csv`
+
+Implementation: `src/sample_eda.py`
+
+### Important Data Interpretation
+
+The 279 leaf records are nested within 48 pots and should not be treated as 279 independent plants. Any future leaf-level machine learning evaluation must account for this grouping, for example through pot-level grouped validation.
+
+The confidence field represents assessment confidence, not disease severity. These metadata findings do not establish disease classification performance or spectral biomarkers.
+
+---
+
+## Acquisition Completeness Investigation
+
+**Investigation Date: 28 November 2026**
+
+An acquisition-completeness investigation was performed using the VNIR and SWIR acquisition metadata to understand missing sampling records across measurement dates, pot sides, treatments and genotypes.
+
+### Overall Results
+
+| Metric | VNIR | SWIR |
+|---|---:|---:|
+| Total groups | 144 | 144 |
+| Empty acquisition cells | 552 | 552 |
+| Technical NA values | 1 | 1 |
+| Unexpected values | 0 | 0 |
+
+### Key Findings
+
+- Both sensors showed identical overall missing-value counts.
+- The only technical NA was identified at DPI 10, side G, for non-infected EPO_67 samples.
+- This group contained 8 numeric entries, 3 empty cells and 1 technical NA out of 12 pot records.
+- Side D had no numeric acquisition entries from DPI 18 onward in the acquisition summary.
+- The acquisition records showed missing entries across the investigated groups.
+
+### Generated Reports
+
+- `data/processed/acquisition_completeness_summary.csv`
+- `data/processed/acquisition_completeness_by_group.csv`
+
+### Important Data Interpretation
+
+Empty acquisition cells and technical NA values are distinct conditions and should not be treated as interchangeable.
+
+These reports describe metadata-level acquisition completeness. They do not confirm the availability of corresponding hyperspectral image files or spectral measurements.
+
+The currently identified SWIR hyperspectral sample represents one infected leaf. Additional independent infected and non-infected hyperspectral samples with reliable metadata links are required before reliable supervised disease classification can be performed.
+
 ## 🛠️ Technologies Used
 
 | Technology | Purpose |
@@ -669,6 +765,9 @@ python analyze_leaf_band_quality.py
 <summary>🔬 Phase 1 – Spectral Data Preparation</summary>
 
 - [x] Dataset selection
+- [x] Sample-level metadata EDA
+- [x] Acquisition completeness investigation
+- [x] VNIR and SWIR acquisition missing-value analysis
 - [x] Initial data organisation
 - [x] SWIR sample inspection
 - [x] Leaf-coordinate validation
